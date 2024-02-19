@@ -1,11 +1,14 @@
 package com.ernestjohndecina.intl3007_diary_application.layers.data_layer;
 
+/**
+ * This Class will interface with the Room Database & the file storage
+ */
 public class DataLayer {
 
     /**
      * DataLayer Constructor
      */
-    DataLayer() {
+    public DataLayer() {
 
     }
 
@@ -38,5 +41,18 @@ public class DataLayer {
 
     }
 
+    /**
+     * Stores user login details
+     */
+    public void storeUserDetails() {
+
+    }
+
+    /**
+     * Reads user login details
+     */
+    public void readUserDetails() {
+
+    }
 
 }
