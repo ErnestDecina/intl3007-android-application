@@ -1,30 +1,38 @@
 package com.ernestjohndecina.intl3007_diary_application.layers.system_features;
 
+import android.app.Activity;
+
 import com.ernestjohndecina.intl3007_diary_application.layers.security_layer.SecurityLayer;
 
 public class SystemFeatures {
+    // Activity
+    Activity mainActivity;
+
     // Security Layer
-    SecurityLayer securityLayer = new SecurityLayer();
+    SecurityLayer securityLayer;
 
     /**
      * SystemFeatures Constructor
      */
-    public SystemFeatures() {
-
+    public SystemFeatures(
+            Activity mainActivity
+    ) {
+        this.mainActivity = mainActivity;
+        this.securityLayer = new SecurityLayer(mainActivity);
     }
 
     /**
-     * Adds a Diary Entry
+     * Adds User Details
      *
-     * @param date
-     * @param diaryMessage
+     * @param username
+     * @param password
      */
-    public void addDiaryEntry(
-            String date,
-            String diaryMessage
+    public void addUserDetails(
+            String username,
+            String password
     ) {
 
-        securityLayer.storeEncryptedDiaryEntry(date, diaryMessage);
+        securityLayer.storeEncryptedDiaryEntry(username, password);
         securityLayer.storeEncryptedImage();
     }
 

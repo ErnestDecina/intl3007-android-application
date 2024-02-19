@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.ernestjohndecina.intl3007_diary_application.layers.system_features.SystemFeatures;
 
 public class MainActivity extends AppCompatActivity {
-    SystemFeatures systemFeatures = new SystemFeatures();
+    SystemFeatures systemFeatures;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void test() {
-        systemFeatures.addDiaryEntry("Test Date", "Test Diary Message");
+        this.systemFeatures = new SystemFeatures(this);
+        systemFeatures.addUserDetails("Username", "Password");
     }
 }

@@ -1,27 +1,46 @@
 package com.ernestjohndecina.intl3007_diary_application.layers.security_layer;
 
+import android.app.Activity;
+import android.util.Log;
+
+import com.ernestjohndecina.intl3007_diary_application.database.entities.User;
 import com.ernestjohndecina.intl3007_diary_application.layers.data_layer.DataLayer;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 public class SecurityLayer {
+    // Activity
+    Activity mainActivity;
+
     // DataLayer
-    DataLayer dataLayer = new DataLayer();
+    DataLayer dataLayer;
 
 
     /**
      * SecurityLayer Constructor
      */
-    public SecurityLayer() {
-
+    public SecurityLayer(
+            Activity mainActivity
+    ) {
+        this.mainActivity = mainActivity;
+        this.dataLayer = new DataLayer(mainActivity);
     }
 
     /**
      *
      */
     public void storeEncryptedDiaryEntry(
-            String date,
-            String diaryMessage
+            String username,
+            String password
     ) {
-        dataLayer.storeDiaryMessage(date, diaryMessage);
+        dataLayer.storeUserDetails(username, password);
+
+
+
+
+        Future<User> user = dataLayer.readUserDetails();
+
     }
 
     /**
