@@ -10,8 +10,18 @@ public class SecurityLayer {
     /**
      * SecurityLayer Constructor
      */
-    SecurityLayer() {
+    public SecurityLayer() {
 
+    }
+
+    /**
+     *
+     */
+    public void storeEncryptedDiaryEntry(
+            String date,
+            String diaryMessage
+    ) {
+        dataLayer.storeDiaryMessage(date, diaryMessage);
     }
 
     /**

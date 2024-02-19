@@ -1,5 +1,8 @@
 package com.ernestjohndecina.intl3007_diary_application.layers.data_layer;
 
+
+import android.util.Log;
+
 /**
  * This Class will interface with the Room Database & the file storage
  */
@@ -10,6 +13,16 @@ public class DataLayer {
      */
     public DataLayer() {
 
+    }
+
+    /**
+     *
+     */
+    public void storeDiaryMessage(
+            String encryptedDate,
+            String encryptedDiaryMessage
+    ) {
+        Log.d("TEST", encryptedDate + " " + encryptedDiaryMessage);
     }
 
     /**
