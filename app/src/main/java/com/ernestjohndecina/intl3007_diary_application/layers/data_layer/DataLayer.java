@@ -3,10 +3,23 @@ package com.ernestjohndecina.intl3007_diary_application.layers.data_layer;
 
 import android.util.Log;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 /**
  * This Class will interface with the Room Database & the file storage
  */
 public class DataLayer {
+    // ExecutorService
+    ExecutorService executorService = new ThreadPoolExecutor(
+            4,
+            10,
+            5L,
+            TimeUnit.MILLISECONDS,
+            new LinkedBlockingDeque<>()
+    );
 
     /**
      * DataLayer Constructor
@@ -22,7 +35,9 @@ public class DataLayer {
             String encryptedDate,
             String encryptedDiaryMessage
     ) {
-        Log.d("TEST", encryptedDate + " " + encryptedDiaryMessage);
+        executorService.submit(() -> {
+            Log.d("TEST", encryptedDate + " " + encryptedDiaryMessage);
+        });
     }
 
     /**
