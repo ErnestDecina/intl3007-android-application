@@ -1,39 +1,47 @@
 package com.ernestjohndecina.intl3007_diary_application.layers.system_features;
 
 import android.app.Activity;
+import java.util.concurrent.ExecutorService;
 
 import com.ernestjohndecina.intl3007_diary_application.layers.security_layer.SecurityLayer;
+import com.ernestjohndecina.intl3007_diary_application.layers.system_features.features.DiaryFeatures;
+import com.ernestjohndecina.intl3007_diary_application.layers.system_features.features.UserFeatures;
 
 public class SystemFeatures {
-    // Activity
     Activity mainActivity;
+    ExecutorService executorService;
+
 
     // Security Layer
     SecurityLayer securityLayer;
+
+
+    // Features
+    public UserFeatures userFeatures;
+    public DiaryFeatures diaryFeatures;
+
+
 
     /**
      * SystemFeatures Constructor
      */
     public SystemFeatures(
-            Activity mainActivity
+            Activity mainActivity,
+            ExecutorService executorService
     ) {
         this.mainActivity = mainActivity;
-        this.securityLayer = new SecurityLayer(mainActivity);
+        this.executorService = executorService;
+        initSecurityLayer();
+        createFeatureLayers();
     }
 
-    /**
-     * Adds User Details
-     *
-     * @param username
-     * @param password
-     */
-    public void addUserDetails(
-            String username,
-            String password
-    ) {
 
-        securityLayer.storeEncryptedDiaryEntry(username, password);
-        securityLayer.storeEncryptedImage();
+    private void initSecurityLayer() {
+        this.securityLayer = new SecurityLayer(mainActivity, executorService);
     }
 
+    private void createFeatureLayers() {
+        this.userFeatures = new UserFeatures(mainActivity, executorService, securityLayer);
+        this.diaryFeatures = new DiaryFeatures(mainActivity, executorService, securityLayer);
+    }
 }
