@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.ernestjohndecina.intl3007_diary_application.database.entities.User;
 import com.ernestjohndecina.intl3007_diary_application.layers.data_layer.DataLayer;
+import com.ernestjohndecina.intl3007_diary_application.utilites.security.Crypt;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -13,6 +14,7 @@ public class SecurityLayer {
     // Activity
     Activity mainActivity;
     ExecutorService executorService;
+    Crypt crypt = new Crypt();
 
     // DataLayer
     DataLayer dataLayer;
@@ -45,7 +47,10 @@ public class SecurityLayer {
             String username,
             String password
     ){
-        dataLayer.writeUserDetails(username, password);
+        String encryptedUsername = crypt.encryptString(username);
+        String encryptedPassword = crypt.encryptString(password);
+
+        dataLayer.writeUserDetails(encryptedUsername, encryptedPassword);
     }
 
 
@@ -55,21 +60,13 @@ public class SecurityLayer {
      */
     public User decryptUserDetails() throws ExecutionException, InterruptedException {
         Future<User> user = dataLayer.readUserDetails();
-        return user.get();
-    }
+        User encryptedUser = user.get();
 
+        User decryptedUser = new User();
+        decryptedUser.username = crypt.decryptString(encryptedUser.username);
+        decryptedUser.password = crypt.decryptString(encryptedUser.password);
 
-    /**
-     *
-     * @param username
-     * @param password
-     * @return
-     */
-    public Boolean validateUser(
-            String username,
-            String password
-    ) {
-        return null;
+        return decryptedUser;
     }
 
 

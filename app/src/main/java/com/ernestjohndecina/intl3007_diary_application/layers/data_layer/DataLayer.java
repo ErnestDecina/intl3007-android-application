@@ -62,7 +62,6 @@ public class DataLayer {
         newUser.password = password;
 
         executorService.submit(() -> {
-            Log.d("TEST", "Storing " + newUser.username + " " + newUser.password);
             diaryDatabase.userDAO().insertUser(newUser);
         });
     }
