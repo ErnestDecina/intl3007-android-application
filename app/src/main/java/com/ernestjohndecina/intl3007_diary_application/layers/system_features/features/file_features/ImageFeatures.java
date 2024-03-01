@@ -46,17 +46,6 @@ public class ImageFeatures {
                     }
                 });
 
-
-        ImagePicker.with(mainActivity)
-                .crop()	    			//Crop image(Optional), Check Customization for more option
-                .compress(1024)			//Final image size will be less than 1 MB(Optional)
-                .createIntent(intent -> test.launch(intent))
-                .start();
-
-        ImagePicker.with(mainActivity)
-                .setImageProviderInterceptor(imageProvider -> null)
-
-
         return null;
     }
 
