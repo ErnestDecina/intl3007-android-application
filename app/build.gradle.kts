@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.ernestjohndecina.intl3007_diary_application"
-        minSdk = 30
+        minSdk = 34
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -38,10 +38,16 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation("androidx.activity:activity-ktx:1.2.3")
+    implementation("androidx.fragment:fragment-ktx:1.3.3")
 
 
     // ROOM Local Database
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
+
+
+    // Image Picker
+    implementation("com.github.dhaval2404:imagepicker:2.1")
 }

@@ -1,6 +1,8 @@
 package com.ernestjohndecina.intl3007_diary_application;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -26,43 +28,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         createDependencies();
+        test();
     }
 
     private void createDependencies() {
         createThreadExecutor();
         createSystemFeatures();
-        test();
     }
 
 
     private void test() {
-        // Create a user
-        systemFeatures.userFeatures.createUserAccount("Test LOL 10", "Test LOL 10");
-
-        // Read User details
-        User user = systemFeatures.userFeatures.getUserAccountDetails();
-
-        // Log user Details
-        Log.d("TEST", "Decrypted Username: " + user.username);
-        Log.d("TEST", "Decrypted Password: " + user.password);
-
-        // Test Login
-        Boolean testLoginInTRUE = systemFeatures.userFeatures.validateUser("Test LOL 10", "Test LOL 10");
-        Boolean testLoginInFALSE = systemFeatures.userFeatures.validateUser("WRONG USERNAME", "WRONG PASSWORD");
-
-        Log.d("TEST", "Login True: " + testLoginInTRUE);
-        Log.d("TEST", "Login False: " + testLoginInFALSE);
-
-
-
-//        // Encryption Test
-//        Crypt crypt = new Crypt();
-//        crypt.init();
-//        String encryptedString = crypt.encrypt("Hello World");
-//        String decryptedString = crypt.decrypt(encryptedString);
-//
-//        Log.d("TEST", "Encrypted: " + encryptedString);
-//        Log.d("TEST", "Decrypted: " + decryptedString);
 
     }
 
