@@ -2,10 +2,15 @@ package com.ernestjohndecina.intl3007_diary_application;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 
+import com.ernestjohndecina.intl3007_diary_application.activities.CreateDiaryActivity;
+import com.ernestjohndecina.intl3007_diary_application.activities.LoginActivity;
+import com.ernestjohndecina.intl3007_diary_application.activities.RegisterActivity;
 import com.ernestjohndecina.intl3007_diary_application.database.entities.User;
 import com.ernestjohndecina.intl3007_diary_application.layers.system_features.SystemFeatures;
 import com.ernestjohndecina.intl3007_diary_application.utilites.security.Crypt;
@@ -16,9 +21,28 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
+    // Development Variables
+    Boolean REGISTER_STATE = true;
+    Boolean LOGIN_STATE = true;
+
+
+
+    // Dependencies
     ExecutorService executorService;
 
     SystemFeatures systemFeatures;
+
+
+    // Activities
+    Intent registerActivity;
+    Intent loginActivity;
+    Intent addDiaryEntryActivity;
+
+
+    // Navigation Buttons
+    Button homeButton;
+    Button addDiaryButton;
+    Button searchDiaryButton;
 
 
     @Override
@@ -31,15 +55,14 @@ public class MainActivity extends AppCompatActivity {
         test();
     }
 
+
     private void createDependencies() {
         createThreadExecutor();
         createSystemFeatures();
+        setupActivities();
+        setupButtons();
     }
 
-
-    private void test() {
-
-    }
 
     private void createThreadExecutor() {
         executorService = new ThreadPoolExecutor(
@@ -58,4 +81,64 @@ public class MainActivity extends AppCompatActivity {
         );
 
     }
+
+
+    private void setupActivities() {
+        registerActivity = new Intent(this, RegisterActivity.class);
+        loginActivity = new Intent(this, LoginActivity.class);
+        addDiaryEntryActivity = new Intent(this, CreateDiaryActivity.class);
+    }
+
+
+    private void setupButtons() {
+        homeButton = findViewById(R.id.HomeButton);
+        addDiaryButton = findViewById(R.id.AddDiaryButton);
+        searchDiaryButton = findViewById(R.id.SearchDiaryButton);
+
+        homeButton.setOnClickListener( v -> changeFragmentHome() );
+        addDiaryButton.setOnClickListener( v -> showAddDiaryEntryActivity() );
+        searchDiaryButton.setOnClickListener( v -> changeFragmentSearch() );
+    }
+
+
+    private void test() {
+    }
+
+
+    private Boolean checkUserRegistered() {
+        return REGISTER_STATE;
+    }
+
+
+    private Boolean checkUserLoggedIn() {
+        return LOGIN_STATE;
+    }
+
+
+    private void showRegisterActivity() {
+        if(!checkUserRegistered()) return;
+        startActivity(registerActivity);
+    }
+
+
+    private void showLoginActivity() {
+        if(!checkUserLoggedIn()) return;
+        startActivity(loginActivity);
+    }
+
+
+    private void changeFragmentHome() {
+
+    }
+
+
+    private void changeFragmentSearch() {
+
+    }
+
+
+    private void showAddDiaryEntryActivity() {
+        startActivity(addDiaryEntryActivity);
+    }
+
 }
