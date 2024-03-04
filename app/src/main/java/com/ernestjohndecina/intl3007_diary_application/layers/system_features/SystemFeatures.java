@@ -14,7 +14,7 @@ import com.ernestjohndecina.intl3007_diary_application.layers.system_features.fe
 import com.ernestjohndecina.intl3007_diary_application.layers.system_features.features.FileFeatures;
 import com.ernestjohndecina.intl3007_diary_application.layers.system_features.features.UserFeatures;
 
-public class SystemFeatures implements Parcelable {
+public class SystemFeatures {
     MainActivity mainActivity;
     ExecutorService executorService;
 
@@ -44,20 +44,9 @@ public class SystemFeatures implements Parcelable {
     }
 
 
-    protected SystemFeatures(Parcel in) {
+    protected SystemFeatures() {
     }
 
-    public static final Creator<SystemFeatures> CREATOR = new Creator<SystemFeatures>() {
-        @Override
-        public SystemFeatures createFromParcel(Parcel in) {
-            return new SystemFeatures(in);
-        }
-
-        @Override
-        public SystemFeatures[] newArray(int size) {
-            return new SystemFeatures[size];
-        }
-    };
 
     private void initSecurityLayer() {
         this.securityLayer = new SecurityLayer(mainActivity, executorService);
@@ -67,14 +56,5 @@ public class SystemFeatures implements Parcelable {
         this.userFeatures = new UserFeatures(mainActivity, executorService, securityLayer);
         this.diaryFeatures = new DiaryFeatures(mainActivity, executorService, securityLayer);
         this.fileFeatures = new FileFeatures(mainActivity, executorService);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
     }
 }

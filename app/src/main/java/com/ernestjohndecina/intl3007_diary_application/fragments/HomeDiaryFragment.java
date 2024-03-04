@@ -13,27 +13,27 @@ import com.ernestjohndecina.intl3007_diary_application.R;
 import com.ernestjohndecina.intl3007_diary_application.layers.system_features.SystemFeatures;
 
 public class HomeDiaryFragment extends Fragment {
-
+    //
+    SystemFeatures systemFeatures;
 
 
     public HomeDiaryFragment() {}
 
 
     public static HomeDiaryFragment newInstance(
-            SystemFeatures systemFeatures
+
     ) {
         HomeDiaryFragment fragment = new HomeDiaryFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("SYSTEM_FEATURES", systemFeatures);
-
         return fragment;
     }
+
 
     @Override
     public void onCreate(
             Bundle savedInstanceState
     ) {
         super.onCreate(savedInstanceState);
+
 
 
     }

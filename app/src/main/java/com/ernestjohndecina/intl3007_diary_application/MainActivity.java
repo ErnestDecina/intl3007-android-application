@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void changeFragmentHome() {
         fragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, HomeDiaryFragment.class, null)
+                .replace(R.id.fragmentContainerView, new HomeDiaryFragment(), null)
                 .commit();
     }
 
