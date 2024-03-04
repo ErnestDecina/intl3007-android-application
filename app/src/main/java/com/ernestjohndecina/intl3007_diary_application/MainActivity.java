@@ -1,6 +1,7 @@
 package com.ernestjohndecina.intl3007_diary_application;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,6 +13,8 @@ import com.ernestjohndecina.intl3007_diary_application.activities.CreateDiaryAct
 import com.ernestjohndecina.intl3007_diary_application.activities.LoginActivity;
 import com.ernestjohndecina.intl3007_diary_application.activities.RegisterActivity;
 import com.ernestjohndecina.intl3007_diary_application.database.entities.User;
+import com.ernestjohndecina.intl3007_diary_application.fragments.HomeDiaryFragment;
+import com.ernestjohndecina.intl3007_diary_application.fragments.SearchDiaryFragment;
 import com.ernestjohndecina.intl3007_diary_application.layers.system_features.SystemFeatures;
 import com.ernestjohndecina.intl3007_diary_application.utilites.security.Crypt;
 
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     ExecutorService executorService;
 
     SystemFeatures systemFeatures;
+    FragmentManager fragmentManager = getSupportFragmentManager();
 
 
     // Activities
@@ -128,12 +132,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void changeFragmentHome() {
-
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, HomeDiaryFragment.class, null)
+                .commit();
     }
 
 
     private void changeFragmentSearch() {
-
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, SearchDiaryFragment.class, null)
+                .commit();
     }
 
 
