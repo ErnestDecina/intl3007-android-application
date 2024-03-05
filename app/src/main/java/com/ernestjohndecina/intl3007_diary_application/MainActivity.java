@@ -106,6 +106,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void test() {
+
+        systemFeatures.diaryFeatures.createDiaryEntry(
+                "Test Title",
+                "Hello world!",
+                "Test timestamp",
+                "Test Image Url",
+                "Test Voice URL",
+                "Test Location",
+                "Test Last Update"
+        );
+
     }
 
 
