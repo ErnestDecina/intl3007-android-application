@@ -23,8 +23,7 @@ public class HomeDiaryFragment extends Fragment {
     public static HomeDiaryFragment newInstance(
 
     ) {
-        HomeDiaryFragment fragment = new HomeDiaryFragment();
-        return fragment;
+        return new HomeDiaryFragment();
     }
 
 
@@ -33,10 +32,8 @@ public class HomeDiaryFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         super.onCreate(savedInstanceState);
-
-
-
     }
+
 
     @Override
     public View onCreateView(
@@ -44,5 +41,12 @@ public class HomeDiaryFragment extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home_diary, container, false);
+    }
+
+
+    public void setSystemFeatures(
+            SystemFeatures systemFeatures
+    ) {
+        this.systemFeatures = systemFeatures;
     }
 }

@@ -43,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
     Intent addDiaryEntryActivity;
 
 
+    // Fragments
+    HomeDiaryFragment homeDiaryFragment;
+    SearchDiaryFragment searchDiaryFragment;
+
+
     // Navigation Buttons
     Button homeButton;
     Button addDiaryButton;
@@ -63,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     private void createDependencies() {
         createThreadExecutor();
         createSystemFeatures();
+        setupFragments();
         setupActivities();
         setupButtons();
     }
@@ -91,6 +97,15 @@ public class MainActivity extends AppCompatActivity {
         registerActivity = new Intent(this, RegisterActivity.class);
         loginActivity = new Intent(this, LoginActivity.class);
         addDiaryEntryActivity = new Intent(this, CreateDiaryActivity.class);
+    }
+
+
+    private void setupFragments() {
+        homeDiaryFragment = HomeDiaryFragment.newInstance();
+        homeDiaryFragment.setSystemFeatures(systemFeatures);
+
+        searchDiaryFragment = SearchDiaryFragment.newInstance();
+        searchDiaryFragment.setSystemFeatures(systemFeatures);
     }
 
 
@@ -133,14 +148,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void changeFragmentHome() {
         fragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, new HomeDiaryFragment(), null)
+                .replace(R.id.fragmentContainerView, homeDiaryFragment, null)
                 .commit();
     }
 
 
     private void changeFragmentSearch() {
         fragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, SearchDiaryFragment.class, null)
+                .replace(R.id.fragmentContainerView, searchDiaryFragment, null)
                 .commit();
     }
 
