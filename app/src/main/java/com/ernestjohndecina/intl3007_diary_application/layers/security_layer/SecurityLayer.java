@@ -38,6 +38,35 @@ public class SecurityLayer {
     }
 
 
+    public void encryptDiaryEntry(
+            String title,
+            String content,
+            String timestamp,
+            String image_url,
+            String Voice_Rec_url,
+            String location,
+            String last_update
+    ) {
+        String encryptedTitle =       crypt.encryptString(title);
+        String encryptedContent =     crypt.encryptString(content);
+        String encryptedTimestamp =   crypt.encryptString(timestamp);
+        String encryptedImageUrl =    crypt.encryptString(image_url);
+        String encryptedVoiceRecUrl = crypt.encryptString(Voice_Rec_url);
+        String encryptedLocation =    crypt.encryptString(location);
+        String encryptedLastUpdate =  crypt.encryptString(last_update);
+
+        dataLayer.writeDiaryEntry(
+                encryptedTitle,
+                encryptedContent,
+                encryptedTimestamp,
+                encryptedImageUrl,
+                encryptedVoiceRecUrl,
+                encryptedLocation,
+                encryptedLastUpdate
+        );
+    }
+
+
     /**
      *
      * @param username
