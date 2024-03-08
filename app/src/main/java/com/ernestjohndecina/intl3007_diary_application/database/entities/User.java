@@ -10,9 +10,15 @@ public class User {
     @ColumnInfo(name = "uid")
     public Integer userID;
 
+    @ColumnInfo(name = "first_name")
+    public String firstName;
+
+    @ColumnInfo(name = "email")
+    public String email;
+
     @ColumnInfo(name = "username")
     public String username;
 
-    @ColumnInfo(name = "password")
-    public String password;
+    @ColumnInfo(name = "pin")
+    public String pin;
 }
