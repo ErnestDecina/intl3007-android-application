@@ -69,4 +69,10 @@ public class UserFeatures {
         }
     }
 
+    public Boolean checkUserExists() {
+        User currentUser = getUserAccountDetails();
+
+        return currentUser != null;
+    }
+
 }

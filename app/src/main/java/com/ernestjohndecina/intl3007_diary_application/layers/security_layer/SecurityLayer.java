@@ -100,6 +100,8 @@ public class SecurityLayer {
         Future<User> user = dataLayer.readUserDetails();
         User encryptedUser = user.get();
 
+        if (encryptedUser == null) return null;
+
         User decryptedUser = new User();
         decryptedUser.firstName = crypt.decryptString(encryptedUser.firstName);
         decryptedUser.email = crypt.decryptString(encryptedUser.email);

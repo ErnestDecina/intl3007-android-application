@@ -109,6 +109,8 @@ public class DataLayer {
     public Future<User> readUserDetails() {
         return executorService.submit(() -> {
             List<User> users = diaryDatabase.userDAO().selectUser();
+            if(users.size() == 0) return null;
+
             return users.get(users.size() - 1);
         });
     }
