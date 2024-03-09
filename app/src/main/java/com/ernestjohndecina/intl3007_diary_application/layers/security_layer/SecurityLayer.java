@@ -101,8 +101,10 @@ public class SecurityLayer {
         User encryptedUser = user.get();
 
         User decryptedUser = new User();
+        decryptedUser.firstName = crypt.decryptString(encryptedUser.firstName);
+        decryptedUser.email = crypt.decryptString(encryptedUser.email);
         decryptedUser.username = crypt.decryptString(encryptedUser.username);
-        decryptedUser.password = crypt.decryptString(encryptedUser.password);
+        decryptedUser.pin = crypt.decryptString(encryptedUser.pin);
 
         return decryptedUser;
     }
