@@ -55,13 +55,13 @@ public class UserFeatures {
 
     public Boolean validateUser(
             String username,
-            String password
+            String pin
     ) {
         try {
             User correctUserDetails = securityLayer.decryptUserDetails();
 
             if(!Objects.equals(correctUserDetails.username, username)) return Boolean.FALSE;
-            if(!Objects.equals(correctUserDetails.password, password)) return Boolean.FALSE;
+            if(!Objects.equals(correctUserDetails.pin, pin)) return Boolean.FALSE;
 
             return Boolean.TRUE;
         } catch (ExecutionException | InterruptedException e) {
