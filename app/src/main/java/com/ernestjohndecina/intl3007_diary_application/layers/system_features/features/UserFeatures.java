@@ -31,10 +31,17 @@ public class UserFeatures {
      * @param password
      */
     public void createUserAccount(
+            String firstName,
+            String email,
             String username,
-            String password
+            String pin
     ) {
-        securityLayer.encryptUserDetails(username, password);
+        securityLayer.encryptUserDetails(
+                firstName,
+                email,
+                username,
+                pin
+        );
     }
 
 
