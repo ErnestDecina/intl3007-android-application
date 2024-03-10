@@ -19,6 +19,8 @@ public class SecurityLayer {
     // DataLayer
     DataLayer dataLayer;
 
+    Boolean loginState = false;
+
 
     /**
      * SecurityLayer Constructor
@@ -109,6 +111,18 @@ public class SecurityLayer {
         decryptedUser.pin = crypt.decryptString(encryptedUser.pin);
 
         return decryptedUser;
+    }
+
+    public void setLoginStateTrue() {
+        this.loginState = true;
+    }
+
+    public void setLoginStateFalse() {
+        this.loginState = false;
+    }
+
+    public Boolean getLoginState() {
+        return this.loginState;
     }
 
 

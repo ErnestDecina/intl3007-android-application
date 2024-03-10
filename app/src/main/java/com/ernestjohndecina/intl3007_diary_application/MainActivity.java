@@ -43,11 +43,6 @@ public class MainActivity extends AppCompatActivity {
     Intent addDiaryEntryActivity;
 
 
-    // Fragments
-    HomeDiaryFragment homeDiaryFragment;
-    SearchDiaryFragment searchDiaryFragment;
-
-
     // Navigation Buttons
     Button homeButton;
     Button addDiaryButton;
@@ -68,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
     private void createDependencies() {
         createThreadExecutor();
         createSystemFeatures();
-        setupFragments();
         setupActivities();
         setupButtons();
     }
@@ -100,15 +94,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void setupFragments() {
-        homeDiaryFragment = HomeDiaryFragment.newInstance();
-        homeDiaryFragment.setSystemFeatures(systemFeatures);
-
-        searchDiaryFragment = SearchDiaryFragment.newInstance();
-        searchDiaryFragment.setSystemFeatures(systemFeatures);
-    }
-
-
     private void setupButtons() {
         homeButton = findViewById(R.id.HomeButton);
         addDiaryButton = findViewById(R.id.AddDiaryButton);
@@ -121,7 +106,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void test() {
-        showRegisterActivity();
+
+        systemFeatures.diaryFeatures.createDiaryEntry(
+                "Test Title",
+                "Hello world!",
+                "Test timestamp",
+                "Test Image Url",
+                "Test Voice URL",
+                "Test Location",
+                "Test Last Update"
+        );
+
     }
 
 
@@ -149,14 +144,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void changeFragmentHome() {
         fragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, homeDiaryFragment, null)
+                .replace(R.id.fragmentContainerView, new HomeDiaryFragment(), null)
                 .commit();
     }
 
 
     private void changeFragmentSearch() {
         fragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, searchDiaryFragment, null)
+                .replace(R.id.fragmentContainerView, SearchDiaryFragment.class, null)
                 .commit();
     }
 
