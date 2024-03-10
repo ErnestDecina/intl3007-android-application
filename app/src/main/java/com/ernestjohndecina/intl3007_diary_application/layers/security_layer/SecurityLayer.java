@@ -19,7 +19,7 @@ public class SecurityLayer {
     // DataLayer
     DataLayer dataLayer;
 
-    Boolean loginState = false;
+    static Boolean loginState = false;
 
 
     /**
