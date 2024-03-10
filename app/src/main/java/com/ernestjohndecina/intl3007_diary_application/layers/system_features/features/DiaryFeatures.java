@@ -22,4 +22,24 @@ public class DiaryFeatures {
         this.securityLayer = securityLayer;
     }
 
+    public void createDiaryEntry(
+            String title,
+            String content,
+            String timestamp,
+            String image_url,
+            String Voice_Rec_url,
+            String location,
+            String last_update
+    ) {
+        securityLayer.encryptDiaryEntry(
+                title,
+                content,
+                timestamp,
+                image_url,
+                Voice_Rec_url,
+                location,
+                last_update
+        );
+    }
+
 }
