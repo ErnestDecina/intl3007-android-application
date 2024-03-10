@@ -8,6 +8,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ernestjohndecina.intl3007_diary_application.R;
+import com.ernestjohndecina.intl3007_diary_application.layers.system_features.SystemFeatures;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText firstNameEditText;
@@ -18,6 +24,10 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
+    ExecutorService executorService;
+    SystemFeatures systemFeatures;
+
+
 
 
 
@@ -26,8 +36,33 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        createDependencies();
         setEditText();
         setRegisterButton();
+    }
+
+    private void createDependencies() {
+        createThreadExecutor();
+        createSystemFeatures();
+    }
+
+    private void createThreadExecutor() {
+        executorService = new ThreadPoolExecutor(
+                4,
+                10,
+                5L,
+                TimeUnit.MILLISECONDS,
+                new LinkedBlockingDeque<>()
+        );
+    }
+
+    private void createSystemFeatures() {
+        this.systemFeatures = new SystemFeatures(
+                this,
+                this.executorService
+        );
+
     }
 
     void setEditText(){
@@ -46,14 +81,20 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     void onClickRegisterButton(){
-       //Toast.makeText(this, "Register done", Toast.LENGTH_LONG).show();
        String firstName = firstNameEditText.getText().toString();
        String email = emailEditText.getText().toString();
        String userName = usernameEditText.getText().toString();
        String pinCode = pinEditNumber.getText().toString();
 
-       Toast.makeText(this, firstName, Toast.LENGTH_LONG).show();
-       //systemFeature.userFeatures.createAccount(firstName, email, userName, pinCode)
+       systemFeatures.userFeatures.createUserAccount(
+               firstName,
+               email,
+               userName,
+               pinCode
+       );
 
+       finish();
     }
+
+
 }
