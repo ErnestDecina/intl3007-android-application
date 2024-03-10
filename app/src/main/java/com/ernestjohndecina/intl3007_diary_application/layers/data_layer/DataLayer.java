@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.room.Room;
 
 import com.ernestjohndecina.intl3007_diary_application.database.DiaryDatabase;
+import com.ernestjohndecina.intl3007_diary_application.database.entities.DiaryEntry;
 import com.ernestjohndecina.intl3007_diary_application.database.entities.User;
 
 
@@ -49,17 +50,51 @@ public class DataLayer {
         ).build();
     }
 
+    /**
+     *  Write Diary Entry
+     */
+    public void writeDiaryEntry(
+
+            String title,
+            String content,
+            String timestamp,
+            String image_url,
+            String Voice_Rec_url,
+            String location,
+            String last_update
+
+    ) {
+        DiaryEntry newDiaryEntry = new DiaryEntry();
+        newDiaryEntry.title = title;
+        newDiaryEntry.content = content;
+        newDiaryEntry.timestamp = timestamp;
+        newDiaryEntry.imageUrl = image_url;
+        newDiaryEntry.VoiceRecUrl= Voice_Rec_url;
+        newDiaryEntry.location = location;
+        newDiaryEntry.LastUpdate = last_update;
+
+
+
+        executorService.submit(() -> {
+           diaryDatabase.diaryEntryDao().insertDiaryEntry(newDiaryEntry);
+        });
+    }
 
     /**
      *  Store user login details
      */
     public void writeUserDetails(
+            String firstName,
+            String email,
             String username,
-            String password
+            String pin
+
     ) {
         User newUser = new User();
+        newUser.firstName = firstName;
+        newUser.email = email;
         newUser.username = username;
-        newUser.password = password;
+        newUser.pin = pin;
 
         executorService.submit(() -> {
             diaryDatabase.userDAO().insertUser(newUser);
@@ -74,6 +109,8 @@ public class DataLayer {
     public Future<User> readUserDetails() {
         return executorService.submit(() -> {
             List<User> users = diaryDatabase.userDAO().selectUser();
+            if(users.size() == 0) return null;
+
             return users.get(users.size() - 1);
         });
     }

@@ -43,11 +43,6 @@ public class MainActivity extends AppCompatActivity {
     Intent addDiaryEntryActivity;
 
 
-    // Fragments
-    HomeDiaryFragment homeDiaryFragment;
-    SearchDiaryFragment searchDiaryFragment;
-
-
     // Navigation Buttons
     Button homeButton;
     Button addDiaryButton;
@@ -61,14 +56,22 @@ public class MainActivity extends AppCompatActivity {
 
 
         createDependencies();
+
         test();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showLoginActivity();
+        showRegisterActivity();
     }
 
 
     private void createDependencies() {
         createThreadExecutor();
         createSystemFeatures();
-        setupFragments();
         setupActivities();
         setupButtons();
     }
@@ -100,15 +103,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void setupFragments() {
-        homeDiaryFragment = HomeDiaryFragment.newInstance();
-        homeDiaryFragment.setSystemFeatures(systemFeatures);
-
-        searchDiaryFragment = SearchDiaryFragment.newInstance();
-        searchDiaryFragment.setSystemFeatures(systemFeatures);
-    }
-
-
     private void setupButtons() {
         homeButton = findViewById(R.id.HomeButton);
         addDiaryButton = findViewById(R.id.AddDiaryButton);
@@ -121,41 +115,53 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void test() {
+//        systemFeatures.diaryFeatures.createDiaryEntry(
+//                "Test Title",
+//                "Hello world!",
+//                "Test timestamp",
+//                "Test Image Url",
+//                "Test Voice URL",
+//                "Test Location",
+//                "Test Last Update"
+//        );
+
     }
 
 
     private Boolean checkUserRegistered() {
-        return REGISTER_STATE;
+        return systemFeatures.userFeatures.checkUserExists();
     }
 
 
     private Boolean checkUserLoggedIn() {
-        return LOGIN_STATE;
+        return systemFeatures.userFeatures.checkUserLoggedIn();
     }
 
 
     private void showRegisterActivity() {
-        if(!checkUserRegistered()) return;
+        if(checkUserRegistered()) return;
         startActivity(registerActivity);
     }
 
 
     private void showLoginActivity() {
-        if(!checkUserLoggedIn()) return;
+        Log.d("TEST", "User logged in: " + checkUserLoggedIn());
+        if(!checkUserRegistered()) return;
+        if(checkUserLoggedIn()) return;
         startActivity(loginActivity);
     }
 
 
     private void changeFragmentHome() {
         fragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, homeDiaryFragment, null)
+                .replace(R.id.fragmentContainerView, new HomeDiaryFragment(), null)
                 .commit();
     }
 
 
     private void changeFragmentSearch() {
         fragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, searchDiaryFragment, null)
+                .replace(R.id.fragmentContainerView, SearchDiaryFragment.class, null)
                 .commit();
     }
 

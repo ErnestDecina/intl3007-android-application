@@ -15,7 +15,7 @@ import com.ernestjohndecina.intl3007_diary_application.layers.system_features.fe
 import com.ernestjohndecina.intl3007_diary_application.layers.system_features.features.UserFeatures;
 
 public class SystemFeatures {
-    MainActivity mainActivity;
+    Activity mainActivity;
     ExecutorService executorService;
 
 
@@ -34,7 +34,7 @@ public class SystemFeatures {
      * SystemFeatures Constructor
      */
     public SystemFeatures(
-            MainActivity mainActivity,
+            Activity mainActivity,
             ExecutorService executorService
     ) {
         this.mainActivity = mainActivity;

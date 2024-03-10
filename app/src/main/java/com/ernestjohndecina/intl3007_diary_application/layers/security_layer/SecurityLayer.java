@@ -19,6 +19,8 @@ public class SecurityLayer {
     // DataLayer
     DataLayer dataLayer;
 
+    static Boolean loginState = false;
+
 
     /**
      * SecurityLayer Constructor
@@ -38,19 +40,57 @@ public class SecurityLayer {
     }
 
 
+    public void encryptDiaryEntry(
+            String title,
+            String content,
+            String timestamp,
+            String image_url,
+            String Voice_Rec_url,
+            String location,
+            String last_update
+    ) {
+        String encryptedTitle =       crypt.encryptString(title);
+        String encryptedContent =     crypt.encryptString(content);
+        String encryptedTimestamp =   crypt.encryptString(timestamp);
+        String encryptedImageUrl =    crypt.encryptString(image_url);
+        String encryptedVoiceRecUrl = crypt.encryptString(Voice_Rec_url);
+        String encryptedLocation =    crypt.encryptString(location);
+        String encryptedLastUpdate =  crypt.encryptString(last_update);
+
+        dataLayer.writeDiaryEntry(
+                encryptedTitle,
+                encryptedContent,
+                encryptedTimestamp,
+                encryptedImageUrl,
+                encryptedVoiceRecUrl,
+                encryptedLocation,
+                encryptedLastUpdate
+        );
+    }
+
+
     /**
      *
      * @param username
-     * @param password
+     * @param pin
      */
     public void encryptUserDetails(
+            String firstName,
+            String email,
             String username,
-            String password
+            String pin
     ){
+        String encryptedFirstName = crypt.encryptString(firstName);
+        String encryptedEmail = crypt.encryptString(email);
         String encryptedUsername = crypt.encryptString(username);
-        String encryptedPassword = crypt.encryptString(password);
+        String encryptedPin = crypt.encryptString(pin);
 
-        dataLayer.writeUserDetails(encryptedUsername, encryptedPassword);
+        dataLayer.writeUserDetails(
+                encryptedFirstName,
+                encryptedEmail,
+                encryptedUsername,
+                encryptedPin
+        );
     }
 
 
@@ -62,11 +102,27 @@ public class SecurityLayer {
         Future<User> user = dataLayer.readUserDetails();
         User encryptedUser = user.get();
 
+        if (encryptedUser == null) return null;
+
         User decryptedUser = new User();
+        decryptedUser.firstName = crypt.decryptString(encryptedUser.firstName);
+        decryptedUser.email = crypt.decryptString(encryptedUser.email);
         decryptedUser.username = crypt.decryptString(encryptedUser.username);
-        decryptedUser.password = crypt.decryptString(encryptedUser.password);
+        decryptedUser.pin = crypt.decryptString(encryptedUser.pin);
 
         return decryptedUser;
+    }
+
+    public void setLoginStateTrue() {
+        loginState = true;
+    }
+
+    public void setLoginStateFalse() {
+        loginState = false;
+    }
+
+    public Boolean getLoginState() {
+        return loginState;
     }
 
 
