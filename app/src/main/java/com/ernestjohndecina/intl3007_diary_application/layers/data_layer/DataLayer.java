@@ -84,12 +84,17 @@ public class DataLayer {
      *  Store user login details
      */
     public void writeUserDetails(
+            String firstName,
+            String email,
             String username,
-            String password
+            String pin
+
     ) {
         User newUser = new User();
+        newUser.firstName = firstName;
+        newUser.email = email;
         newUser.username = username;
-        newUser.password = password;
+        newUser.pin = pin;
 
         executorService.submit(() -> {
             diaryDatabase.userDAO().insertUser(newUser);
@@ -104,6 +109,8 @@ public class DataLayer {
     public Future<User> readUserDetails() {
         return executorService.submit(() -> {
             List<User> users = diaryDatabase.userDAO().selectUser();
+            if(users.size() == 0) return null;
+
             return users.get(users.size() - 1);
         });
     }

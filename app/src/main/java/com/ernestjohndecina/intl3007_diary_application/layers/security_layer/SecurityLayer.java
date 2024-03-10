@@ -19,6 +19,8 @@ public class SecurityLayer {
     // DataLayer
     DataLayer dataLayer;
 
+    Boolean loginState = false;
+
 
     /**
      * SecurityLayer Constructor
@@ -70,16 +72,25 @@ public class SecurityLayer {
     /**
      *
      * @param username
-     * @param password
+     * @param pin
      */
     public void encryptUserDetails(
+            String firstName,
+            String email,
             String username,
-            String password
+            String pin
     ){
+        String encryptedFirstName = crypt.encryptString(firstName);
+        String encryptedEmail = crypt.encryptString(email);
         String encryptedUsername = crypt.encryptString(username);
-        String encryptedPassword = crypt.encryptString(password);
+        String encryptedPin = crypt.encryptString(pin);
 
-        dataLayer.writeUserDetails(encryptedUsername, encryptedPassword);
+        dataLayer.writeUserDetails(
+                encryptedFirstName,
+                encryptedEmail,
+                encryptedUsername,
+                encryptedPin
+        );
     }
 
 
@@ -91,11 +102,27 @@ public class SecurityLayer {
         Future<User> user = dataLayer.readUserDetails();
         User encryptedUser = user.get();
 
+        if (encryptedUser == null) return null;
+
         User decryptedUser = new User();
+        decryptedUser.firstName = crypt.decryptString(encryptedUser.firstName);
+        decryptedUser.email = crypt.decryptString(encryptedUser.email);
         decryptedUser.username = crypt.decryptString(encryptedUser.username);
-        decryptedUser.password = crypt.decryptString(encryptedUser.password);
+        decryptedUser.pin = crypt.decryptString(encryptedUser.pin);
 
         return decryptedUser;
+    }
+
+    public void setLoginStateTrue() {
+        this.loginState = true;
+    }
+
+    public void setLoginStateFalse() {
+        this.loginState = false;
+    }
+
+    public Boolean getLoginState() {
+        return this.loginState;
     }
 
 
