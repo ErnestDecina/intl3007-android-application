@@ -56,7 +56,19 @@ public class MainActivity extends AppCompatActivity {
 
 
         createDependencies();
+
         test();
+        showLoginActivity();
+        showRegisterActivity();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        showLoginActivity();
+        showRegisterActivity();
     }
 
 
@@ -106,38 +118,37 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void test() {
-
-        systemFeatures.diaryFeatures.createDiaryEntry(
-                "Test Title",
-                "Hello world!",
-                "Test timestamp",
-                "Test Image Url",
-                "Test Voice URL",
-                "Test Location",
-                "Test Last Update"
-        );
+//        systemFeatures.diaryFeatures.createDiaryEntry(
+//                "Test Title",
+//                "Hello world!",
+//                "Test timestamp",
+//                "Test Image Url",
+//                "Test Voice URL",
+//                "Test Location",
+//                "Test Last Update"
+//        );
 
     }
 
 
     private Boolean checkUserRegistered() {
-        return REGISTER_STATE;
+        return systemFeatures.userFeatures.checkUserExists();
     }
 
 
     private Boolean checkUserLoggedIn() {
-        return LOGIN_STATE;
+        return systemFeatures.userFeatures.checkUserLoggedIn();
     }
 
 
     private void showRegisterActivity() {
-        if(!checkUserRegistered()) return;
+        if(checkUserRegistered()) return;
         startActivity(registerActivity);
     }
 
 
     private void showLoginActivity() {
-        if(!checkUserLoggedIn()) return;
+        if(checkUserLoggedIn()) return;
         startActivity(loginActivity);
     }
 
