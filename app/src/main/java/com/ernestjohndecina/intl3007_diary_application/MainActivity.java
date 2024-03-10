@@ -58,15 +58,12 @@ public class MainActivity extends AppCompatActivity {
         createDependencies();
 
         test();
-        showLoginActivity();
-        showRegisterActivity();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         showLoginActivity();
         showRegisterActivity();
     }
@@ -148,6 +145,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void showLoginActivity() {
+        Log.d("TEST", "User logged in: " + checkUserLoggedIn());
+        if(!checkUserRegistered()) return;
         if(checkUserLoggedIn()) return;
         startActivity(loginActivity);
     }

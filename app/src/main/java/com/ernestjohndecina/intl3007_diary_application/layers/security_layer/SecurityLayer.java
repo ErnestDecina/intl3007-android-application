@@ -114,15 +114,15 @@ public class SecurityLayer {
     }
 
     public void setLoginStateTrue() {
-        this.loginState = true;
+        loginState = true;
     }
 
     public void setLoginStateFalse() {
-        this.loginState = false;
+        loginState = false;
     }
 
     public Boolean getLoginState() {
-        return this.loginState;
+        return loginState;
     }
 
 
