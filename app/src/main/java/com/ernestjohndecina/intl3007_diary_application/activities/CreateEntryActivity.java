@@ -12,7 +12,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class CreateDiaryActivity extends AppCompatActivity {
+public class CreateEntryActivity extends AppCompatActivity {
     ExecutorService executorService;
     SystemFeatures systemFeatures;
 
