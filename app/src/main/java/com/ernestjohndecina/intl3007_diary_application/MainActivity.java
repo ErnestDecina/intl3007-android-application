@@ -4,19 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 
-import com.ernestjohndecina.intl3007_diary_application.activities.CreateDiaryActivity;
+import com.ernestjohndecina.intl3007_diary_application.activities.CreateEntryActivity;
 import com.ernestjohndecina.intl3007_diary_application.activities.LoginActivity;
 import com.ernestjohndecina.intl3007_diary_application.activities.RegisterActivity;
-import com.ernestjohndecina.intl3007_diary_application.database.entities.User;
 import com.ernestjohndecina.intl3007_diary_application.fragments.HomeDiaryFragment;
 import com.ernestjohndecina.intl3007_diary_application.fragments.SearchDiaryFragment;
 import com.ernestjohndecina.intl3007_diary_application.layers.system_features.SystemFeatures;
-import com.ernestjohndecina.intl3007_diary_application.utilites.security.Crypt;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -56,7 +53,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         createDependencies();
+
         test();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showLoginActivity();
+        showRegisterActivity();
     }
 
 
@@ -90,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupActivities() {
         registerActivity = new Intent(this, RegisterActivity.class);
         loginActivity = new Intent(this, LoginActivity.class);
-        addDiaryEntryActivity = new Intent(this, CreateDiaryActivity.class);
+        addDiaryEntryActivity = new Intent(this, CreateEntryActivity.class);
     }
 
 
@@ -106,38 +112,39 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void test() {
-
-        systemFeatures.diaryFeatures.createDiaryEntry(
-                "Test Title",
-                "Hello world!",
-                "Test timestamp",
-                "Test Image Url",
-                "Test Voice URL",
-                "Test Location",
-                "Test Last Update"
-        );
+//        systemFeatures.diaryFeatures.createDiaryEntry(
+//                "Test Title",
+//                "Hello world!",
+//                "Test timestamp",
+//                "Test Image Url",
+//                "Test Voice URL",
+//                "Test Location",
+//                "Test Last Update"
+//        );
 
     }
 
 
     private Boolean checkUserRegistered() {
-        return REGISTER_STATE;
+        return systemFeatures.userFeatures.checkUserExists();
     }
 
 
     private Boolean checkUserLoggedIn() {
-        return LOGIN_STATE;
+        return systemFeatures.userFeatures.checkUserLoggedIn();
     }
 
 
     private void showRegisterActivity() {
-        if(!checkUserRegistered()) return;
+        if(checkUserRegistered()) return;
         startActivity(registerActivity);
     }
 
 
     private void showLoginActivity() {
-        if(!checkUserLoggedIn()) return;
+        Log.d("TEST", "User logged in: " + checkUserLoggedIn());
+        if(!checkUserRegistered()) return;
+        if(checkUserLoggedIn()) return;
         startActivity(loginActivity);
     }
 
