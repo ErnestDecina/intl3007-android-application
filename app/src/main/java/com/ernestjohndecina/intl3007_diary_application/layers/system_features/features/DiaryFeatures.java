@@ -4,6 +4,8 @@ import android.app.Activity;
 
 import com.ernestjohndecina.intl3007_diary_application.layers.security_layer.SecurityLayer;
 
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 
 public class DiaryFeatures {
@@ -29,7 +31,8 @@ public class DiaryFeatures {
             String image_url,
             String Voice_Rec_url,
             String location,
-            String last_update
+            String last_update,
+            ArrayList<URI> images
     ) {
         securityLayer.encryptDiaryEntry(
                 title,
