@@ -1,11 +1,14 @@
 package com.ernestjohndecina.intl3007_diary_application.layers.security_layer;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.net.Uri;
 
 import com.ernestjohndecina.intl3007_diary_application.database.entities.User;
 import com.ernestjohndecina.intl3007_diary_application.layers.data_layer.DataLayer;
 import com.ernestjohndecina.intl3007_diary_application.utilites.security.Crypt;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -47,8 +50,10 @@ public class SecurityLayer {
             String image_url,
             String Voice_Rec_url,
             String location,
-            String last_update
+            String last_update,
+            ArrayList<Bitmap> bitmapArrayList
     ) {
+        // Encrypt Strings
         String encryptedTitle =       crypt.encryptString(title);
         String encryptedContent =     crypt.encryptString(content);
         String encryptedTimestamp =   crypt.encryptString(timestamp);
@@ -56,6 +61,12 @@ public class SecurityLayer {
         String encryptedVoiceRecUrl = crypt.encryptString(Voice_Rec_url);
         String encryptedLocation =    crypt.encryptString(location);
         String encryptedLastUpdate =  crypt.encryptString(last_update);
+
+        // Encrypt Images
+
+
+
+
 
         dataLayer.writeDiaryEntry(
                 encryptedTitle,
