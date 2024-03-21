@@ -31,10 +31,17 @@ public class UserFeatures {
      * @param password
      */
     public void createUserAccount(
+            String firstName,
+            String email,
             String username,
-            String password
+            String pin
     ) {
-        securityLayer.encryptUserDetails(username, password);
+        securityLayer.encryptUserDetails(
+                firstName,
+                email,
+                username,
+                pin
+        );
     }
 
 
@@ -48,18 +55,30 @@ public class UserFeatures {
 
     public Boolean validateUser(
             String username,
-            String password
+            String pin
     ) {
         try {
+            securityLayer.setLoginStateFalse();
             User correctUserDetails = securityLayer.decryptUserDetails();
 
             if(!Objects.equals(correctUserDetails.username, username)) return Boolean.FALSE;
-            if(!Objects.equals(correctUserDetails.password, password)) return Boolean.FALSE;
+            if(!Objects.equals(correctUserDetails.pin, pin)) return Boolean.FALSE;
 
+            securityLayer.setLoginStateTrue();
             return Boolean.TRUE;
         } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Boolean checkUserExists() {
+        User currentUser = getUserAccountDetails();
+
+        return currentUser != null;
+    }
+
+    public Boolean checkUserLoggedIn() {
+        return securityLayer.getLoginState();
     }
 
 }
