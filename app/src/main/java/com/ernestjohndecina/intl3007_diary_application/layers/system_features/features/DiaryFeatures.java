@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.ernestjohndecina.intl3007_diary_application.database.entities.DiaryEntry;
 import com.ernestjohndecina.intl3007_diary_application.layers.security_layer.SecurityLayer;
 
 import java.io.IOException;
@@ -14,6 +15,8 @@ import java.net.URI;
 import java.nio.InvalidMarkException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 
 public class DiaryFeatures {
@@ -36,35 +39,46 @@ public class DiaryFeatures {
             String title,
             String content,
             String timestamp,
-            String image_url,
-            String Voice_Rec_url,
             String location,
             String last_update,
             ArrayList<Uri> uriArrayList
     ) {
-        // Bitmap ArrayList
-        ArrayList<Bitmap> bitmapArrayList = new ArrayList<>();
+        executorService.submit(() -> {
+            // Bitmap ArrayList
+            ArrayList<Bitmap> bitmapArrayList = new ArrayList<>();
 
-        // Convert Uri to Bitmaps
-        for (Uri uri: uriArrayList) {
-            try { bitmapArrayList.add(MediaStore.Images.Media.getBitmap(mainActivity.getContentResolver(), uri)); }
-            catch (IOException e) { throw new RuntimeException(e); }
-        } // End foreach
+            // Convert Uri to Bitmaps
+            for (Uri uri: uriArrayList) {
+                try {
+                    Bitmap image = MediaStore.Images.Media.getBitmap(mainActivity.getContentResolver(), uri);
 
+                    bitmapArrayList.add(image);
+                }
+                catch (IOException e) { throw new RuntimeException(e); }
+            } // End foreach
 
+            // Encrypt
+            securityLayer.encryptDiaryEntry(
+                    title,
+                    content,
+                    timestamp,
+                    location,
+                    last_update,
+                    bitmapArrayList
+            );
+        });
+    }
 
+    public List<DiaryEntry> getAllDiaryEntries() {
+        try {
+            return securityLayer.decryptAllDiaryEntry();
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-        // Encrypt
-        securityLayer.encryptDiaryEntry(
-                title,
-                content,
-                timestamp,
-                image_url,
-                Voice_Rec_url,
-                location,
-                last_update,
-                bitmapArrayList
-        );
+    public ArrayList<Bitmap> getDiaryEntryImages(DiaryEntry entry) {
+        return securityLayer.decryptImages(entry);
     }
 
 }

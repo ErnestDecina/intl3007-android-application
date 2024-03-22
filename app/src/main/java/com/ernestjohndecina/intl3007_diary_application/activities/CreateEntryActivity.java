@@ -7,16 +7,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ClipData;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.ernestjohndecina.intl3007_diary_application.MainActivity;
 import com.ernestjohndecina.intl3007_diary_application.R;
+import com.ernestjohndecina.intl3007_diary_application.database.entities.DiaryEntry;
 import com.ernestjohndecina.intl3007_diary_application.layers.system_features.SystemFeatures;
+import com.ernestjohndecina.intl3007_diary_application.utilites.security.Crypt;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -40,6 +49,8 @@ public class CreateEntryActivity extends AppCompatActivity {
     Button buttonSave;
     ImageButton buttonGetAudio;
 
+    ImageView testImage;
+
 
 
     @Override
@@ -61,6 +72,8 @@ public class CreateEntryActivity extends AppCompatActivity {
         createSystemFeatures();
         setupGetImages();
         setupButtons();
+
+        testImage = findViewById(R.id.imageView4);
     }
 
     private void createThreadExecutor() {
@@ -87,6 +100,7 @@ public class CreateEntryActivity extends AppCompatActivity {
 
         buttonGetImages.setOnClickListener(v -> getImages());
         buttonSave.setOnClickListener(v -> saveEntry());
+        buttonGetAudio.setOnClickListener(v -> getAudio());
 
     }
 
@@ -148,11 +162,18 @@ public class CreateEntryActivity extends AppCompatActivity {
                 "test title",
                 "test content",
                     dateString,
-                "test_image_url",
-                "test_voice_url",
-                "test_location",
-                "",
+                "test location",
+                "test last updated",
                 uriArrayList
         );
+    }
+
+    private void getAudio() {
+        List<DiaryEntry> diaryEntries = systemFeatures.diaryFeatures.getAllDiaryEntries();
+        ArrayList<Bitmap> imagesArrayList = systemFeatures.diaryFeatures.getDiaryEntryImages(diaryEntries.get(0));
+
+
+        testImage.setImageBitmap(imagesArrayList.get(1));
+        Toast.makeText(this, "Size: " + imagesArrayList.get(0).toString(), Toast.LENGTH_SHORT).show();
     }
 }
