@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_background2"
+    android:padding="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp">
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="#000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="11/02/24" />
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="28dp"
+        android:layout_height="30dp"
+        android:contentDescription="@string/icon_description"
+        android:src="@drawable/cat_mood"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="-5dp" />
+
+    <TextView
+        android:id="@+id/tvTrip"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate"
+        app:layout_constraintEnd_toStartOf="@+id/ivIcon"
+        tools:text="Trip to Seoul" />
+
+    <TextView
+        android:id="@+id/tvLastUpdated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textColor="#000"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="last updated 11/02/25 11:33" />
+</androidx.constraintlayout.widget.ConstraintLayout>

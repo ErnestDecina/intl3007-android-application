@@ -35,7 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/backgroundImageView"
-            app:layout_constraintVertical_bias="0.02" />
+            app:layout_constraintVertical_bias="0.029" />
 
         <TextView
             android:id="@+id/greetingTextView"
@@ -46,8 +46,12 @@
             android:text="Welcome Back User"
             android:textSize="25sp"
             android:textStyle="bold"
-            tools:layout_editor_absoluteX="29dp"
-            tools:layout_editor_absoluteY="16dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.145"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.023" />
 
         <ListView
             android:layout_width="352dp"
@@ -55,7 +59,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="155dp" />
+            tools:layout_editor_absoluteY="165dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
