@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         showLoginActivity();
         showRegisterActivity();
+        changeFragmentHome();
     }
 
 
@@ -132,24 +133,24 @@ public class MainActivity extends AppCompatActivity {
 
 
     private Boolean checkUserRegistered() {
-        return REGISTER_STATE;
+        return systemFeatures.userFeatures.checkUserExists();
     }
 
 
     private Boolean checkUserLoggedIn() {
-        return LOGIN_STATE;
+        return systemFeatures.userFeatures.checkUserLoggedIn();
     }
 
 
     private void showRegisterActivity() {
-        if(!checkUserRegistered()) return;
+        if(checkUserRegistered()) return;
         startActivity(registerActivity);
     }
 
 
     private void showLoginActivity() {
-
-        if(!checkUserLoggedIn()) return;
+        if(!checkUserRegistered()) return;
+        if(checkUserLoggedIn()) return;
         startActivity(loginActivity);
     }
 

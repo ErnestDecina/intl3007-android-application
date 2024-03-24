@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -51,6 +52,11 @@ public class CreateEntryActivity extends AppCompatActivity {
 
     ImageView testImage;
 
+    // Edit Text
+    EditText titleEditText;
+    EditText contentEntryEditText;
+
+
 
 
     @Override
@@ -72,6 +78,7 @@ public class CreateEntryActivity extends AppCompatActivity {
         createSystemFeatures();
         setupGetImages();
         setupButtons();
+        setupEditText();
 
         testImage = findViewById(R.id.imageView4);
     }
@@ -91,6 +98,11 @@ public class CreateEntryActivity extends AppCompatActivity {
                 this,
                 this.executorService
         );
+    }
+
+    private void setupEditText() {
+        this.titleEditText = findViewById(R.id.titleEditText);
+        this.contentEntryEditText = findViewById(R.id.contentEntryEditText);
     }
 
     private void setupButtons() {
@@ -150,6 +162,12 @@ public class CreateEntryActivity extends AppCompatActivity {
     }
 
     private void saveEntry() {
+        // Get Text
+        String title = String.valueOf(titleEditText.getText());
+        String content = String.valueOf(contentEntryEditText.getText());
+
+
+        // Get Date
         int minutes = Calendar.getInstance().get(Calendar.MINUTE);
         int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
@@ -159,21 +177,20 @@ public class CreateEntryActivity extends AppCompatActivity {
         String dateString = hour + ":" + minutes + " " + day + "/" + month + "/" + year;
 
         systemFeatures.diaryFeatures.createDiaryEntry(
-                "test title",
-                "test content",
-                    dateString,
+                title,
+                content,
+                dateString,
                 "test location",
-                "test last updated",
+                dateString,
                 uriArrayList
         );
     }
 
     private void getAudio() {
-        List<DiaryEntry> diaryEntries = systemFeatures.diaryFeatures.getAllDiaryEntries();
-        ArrayList<Bitmap> imagesArrayList = systemFeatures.diaryFeatures.getDiaryEntryImages(diaryEntries.get(0));
 
 
-        testImage.setImageBitmap(imagesArrayList.get(1));
-        Toast.makeText(this, "Size: " + imagesArrayList.get(0).toString(), Toast.LENGTH_SHORT).show();
+
+
+        testImage.setImageURI(uriArrayList.get(0));
     }
 }

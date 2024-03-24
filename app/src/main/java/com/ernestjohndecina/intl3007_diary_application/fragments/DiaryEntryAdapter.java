@@ -30,7 +30,8 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DiaryEntry entry = entries.get(position);
         holder.titleTextView.setText(entry.title);
-        holder.lastUpdatedTextView.setText(entry.LastUpdate);
+        holder.date.setText(entry.timestamp);
+        holder.lastUpdatedTextView.setText("last updated on " + entry.LastUpdate);
     }
 
     @Override
@@ -40,11 +41,14 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Vi
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
+        TextView date;
         TextView lastUpdatedTextView;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.tvTrip);
+            date = itemView.findViewById(R.id.tvDate);
             lastUpdatedTextView = itemView.findViewById(R.id.tvLastUpdated);
         }
     }
