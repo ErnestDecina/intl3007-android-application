@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 
 public class FileFeatures {
-    MainActivity mainActivity;
+    Activity mainActivity;
     ExecutorService executorService;
 
 
@@ -19,7 +19,7 @@ public class FileFeatures {
 
 
     public FileFeatures(
-            MainActivity mainActivity,
+            Activity mainActivity,
             ExecutorService executorService
     ) {
         this.mainActivity = mainActivity;
@@ -30,7 +30,8 @@ public class FileFeatures {
 
 
     void createFileFeatures() {
-        imageFeatures = new ImageFeatures(mainActivity, executorService);
+
+        //imageFeatures = new ImageFeatures(mainActivity, executorService);
     }
 
 

@@ -11,9 +11,10 @@ import java.util.List;
 @Dao
 public interface DiaryEntryDAO {
     @Insert
-    void insertDiaryEntry(DiaryEntry diaryentry);
+    Long insertDiaryEntry(DiaryEntry diaryentry);
 
     @Query("SELECT * FROM DiaryEntry")
-    List<DiaryEntry> selectdiaryentry();
+    List<DiaryEntry> selectAllDiaryEntry();
+
 
 }
