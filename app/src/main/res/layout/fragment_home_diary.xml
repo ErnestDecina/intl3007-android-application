@@ -29,14 +29,14 @@
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="195dp"
-            android:layout_height="160dp"
+            android:layout_height="96dp"
             android:layout_marginTop="30dp"
             android:src="@drawable/tape_on"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/backgroundImageView"
-            app:layout_constraintVertical_bias="0.029" />
+            app:layout_constraintVertical_bias="0.072" />
 
         <TextView
             android:id="@+id/greetingTextView"
@@ -54,13 +54,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.023" />
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/entryRecyclerView"
-            android:layout_width="379dp"
-            android:layout_height="491dp"
+            android:layout_width="343dp"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toBottomOf="@+id/backgroundImageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
