@@ -1,11 +1,18 @@
 package com.ernestjohndecina.intl3007_diary_application.layers.security_layer;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.widget.Toast;
 
+import com.ernestjohndecina.intl3007_diary_application.database.entities.DiaryEntry;
 import com.ernestjohndecina.intl3007_diary_application.database.entities.User;
 import com.ernestjohndecina.intl3007_diary_application.layers.data_layer.DataLayer;
 import com.ernestjohndecina.intl3007_diary_application.utilites.security.Crypt;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -19,7 +26,7 @@ public class SecurityLayer {
     // DataLayer
     DataLayer dataLayer;
 
-    Boolean loginState = false;
+    static Boolean loginState = false;
 
 
     /**
@@ -44,29 +51,83 @@ public class SecurityLayer {
             String title,
             String content,
             String timestamp,
-            String image_url,
-            String Voice_Rec_url,
             String location,
-            String last_update
+            String last_update,
+            ArrayList<Bitmap> bitmapArrayList
     ) {
+        ArrayList<byte[]> encryptedBitmapArrayList = new ArrayList<>();
+
+        // Encrypt Strings
         String encryptedTitle =       crypt.encryptString(title);
         String encryptedContent =     crypt.encryptString(content);
         String encryptedTimestamp =   crypt.encryptString(timestamp);
-        String encryptedImageUrl =    crypt.encryptString(image_url);
-        String encryptedVoiceRecUrl = crypt.encryptString(Voice_Rec_url);
         String encryptedLocation =    crypt.encryptString(location);
         String encryptedLastUpdate =  crypt.encryptString(last_update);
 
+        // Encrypt Images
+        for (Bitmap bitmap : bitmapArrayList) {
+            byte[] encryptedImage = crypt.encryptImage(bitmap);
+            encryptedBitmapArrayList.add(encryptedImage);
+        } // End foreach
+
+        // Encrypt Audio
+
+
+
+        // Write Diary Entry
         dataLayer.writeDiaryEntry(
                 encryptedTitle,
                 encryptedContent,
                 encryptedTimestamp,
-                encryptedImageUrl,
-                encryptedVoiceRecUrl,
                 encryptedLocation,
-                encryptedLastUpdate
+                encryptedLastUpdate,
+                encryptedBitmapArrayList,
+                null
         );
     }
+
+    /**
+     *
+     */
+    public List<DiaryEntry> decryptAllDiaryEntry() throws ExecutionException, InterruptedException {
+        Future<List<DiaryEntry>> encryptedDiaryEntryFuture = dataLayer.readAllDiaryEntry();
+        List<DiaryEntry> encryptedDiaryEntryList = encryptedDiaryEntryFuture.get();
+
+        // Decrypt
+        for (DiaryEntry encryptedDiaryEntry: encryptedDiaryEntryList) {
+            // Decrypt Content
+            encryptedDiaryEntry.title =      crypt.decryptString(encryptedDiaryEntry.title);
+            encryptedDiaryEntry.content =    crypt.decryptString(encryptedDiaryEntry.content);
+            encryptedDiaryEntry.timestamp =  crypt.decryptString(encryptedDiaryEntry.timestamp);
+            encryptedDiaryEntry.LastUpdate = crypt.decryptString(encryptedDiaryEntry.LastUpdate);
+            encryptedDiaryEntry.location =   crypt.decryptString(encryptedDiaryEntry.location);
+
+        } // ENd for each
+
+        return encryptedDiaryEntryList;
+    } // End decryptDiaryEntry
+
+
+    public ArrayList<Bitmap> decryptImages(DiaryEntry entry) {
+        try {
+            ArrayList<Bitmap> decryptedImages = new ArrayList<>();
+            Long id = entry.entryID;
+            Integer numImages = entry.numImages;
+
+            Future<List<byte[]>> encryptedBitmapListFuture = dataLayer.readDiaryEntryImages(id, numImages);
+            List<byte[]> encryptedBitmapList = encryptedBitmapListFuture.get();
+
+            // Decrypt
+            for (byte[] encryptedBitmap: encryptedBitmapList) {
+                decryptedImages.add(crypt.decryptImage(encryptedBitmap));
+            } // End foreach
+
+
+            return decryptedImages;
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    } // End decryptImages
 
 
     /**
@@ -114,15 +175,15 @@ public class SecurityLayer {
     }
 
     public void setLoginStateTrue() {
-        this.loginState = true;
+        loginState = true;
     }
 
     public void setLoginStateFalse() {
-        this.loginState = false;
+        loginState = false;
     }
 
     public Boolean getLoginState() {
-        return this.loginState;
+        return loginState;
     }
 
 
