@@ -9,13 +9,14 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
-        android:name="com.ernestjohndecina.intl3007_diary_application.fragments.HomeDiaryFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/MainActivityNavBar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/MainActivityNavBar"
@@ -32,24 +33,38 @@
 
             <Button
                 android:id="@+id/HomeButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@android:color/darker_gray"
+                android:stateListAnimator="@null"
                 android:text="Home" />
 
-            <Button
-                android:id="@+id/AddDiaryButton"
-                android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Add DIary" />
+                app:cardCornerRadius="50dp">
+
+                <Button
+                    android:id="@+id/AddDiaryButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Add Diary"
+                    android:background="@android:color/darker_gray"
+                    android:stateListAnimator="@null" />
+            </androidx.cardview.widget.CardView>
 
             <Button
                 android:id="@+id/SearchDiaryButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Search" />
+                android:text="Search"
+                android:background="@android:color/darker_gray"
+                android:stateListAnimator="@null" />
+
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
