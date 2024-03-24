@@ -59,18 +59,17 @@
             app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/loginButton"
-            android:layout_width="234dp"
-            android:layout_height="57dp"
+            android:layout_width="237dp"
+            android:layout_height="88dp"
             android:layout_marginTop="44dp"
             android:clickable="true"
+            android:contentDescription="@string/login_button"
             android:focusable="true"
             android:src="@drawable/login_bttn"
-            android:contentDescription="@string/login_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pinLoginEditText"
             app:layout_constraintVertical_bias="0.0" />
