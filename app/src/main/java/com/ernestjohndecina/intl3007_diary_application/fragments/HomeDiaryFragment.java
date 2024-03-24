@@ -35,7 +35,7 @@ public class HomeDiaryFragment extends Fragment {
             if (systemFeatures != null && systemFeatures.userFeatures != null) {
                 // Get the user information
                 User userInfo = systemFeatures.userFeatures.getUserAccountDetails();
-                String firstName = ((User) userInfo).firstName;
+                String firstName = userInfo.firstName;
 
                 // Display the greeting with the user's first name
                 greetingTextView.setText("Good Morning, " + firstName);

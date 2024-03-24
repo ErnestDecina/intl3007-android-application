@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.ernestjohndecina.intl3007_diary_application.R;
+import com.ernestjohndecina.intl3007_diary_application.database.entities.DiaryEntry;
 import com.ernestjohndecina.intl3007_diary_application.layers.system_features.SystemFeatures;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class SearchDiaryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search_diary, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewDiaryEntries);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new DiaryEntryAdapter(getDummyDiaryEntries()); // Populate with dummy entries
+        adapter = new DiaryEntryAdapter(systemFeatures.diaryFeatures.getAllDiaryEntries()); // Populate with dummy entries
         recyclerView.setAdapter(adapter);
 
         dropdown = view.findViewById(R.id.dropdown);
@@ -95,8 +96,15 @@ public class SearchDiaryFragment extends Fragment {
 
     private List<DiaryEntry> getDummyDiaryEntries() {
         List<DiaryEntry> entries = new ArrayList<>();
-        entries.add(new DiaryEntry("Diary Entry 1", "Content for Diary Entry 1"));
-        entries.add(new DiaryEntry("Diary Entry 2", "Content for Diary Entry 2"));
+
+        for(int i = 0; i < 10; i++) {
+            DiaryEntry temp = new DiaryEntry();
+            temp.title = "Title " + i;
+            temp.LastUpdate = "test/test/test";
+
+            entries.add(temp);
+        }
+
         return entries;
     }
 

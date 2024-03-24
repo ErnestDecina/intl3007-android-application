@@ -25,7 +25,7 @@
         android:id="@+id/ivIcon"
         android:layout_width="28dp"
         android:layout_height="30dp"
-        android:contentDescription="@string/icon_description"
+        android:contentDescription="lol"
         android:src="@drawable/cat_mood"
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_editor_absoluteY="-5dp" />
