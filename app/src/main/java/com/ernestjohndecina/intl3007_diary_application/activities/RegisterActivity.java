@@ -14,13 +14,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import android.widget.ImageButton;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText firstNameEditText;
     EditText emailEditText;
     EditText usernameEditText;
     EditText pinEditNumber;
-    Button registerButton;
+    ImageButton registerButton;
 
 
 
