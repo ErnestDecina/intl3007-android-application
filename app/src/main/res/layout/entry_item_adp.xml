@@ -25,10 +25,15 @@
         android:id="@+id/ivIcon"
         android:layout_width="28dp"
         android:layout_height="30dp"
-        android:contentDescription="lol"
+        android:layout_marginTop="0.5dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="3dp"
+        android:contentDescription="@string/cat_mood"
         android:src="@drawable/cat_mood"
+        app:layout_constraintBottom_toTopOf="@+id/tvLastUpdated"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="-5dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvTrip"
