@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.ernestjohndecina.intl3007_diary_application.activities.CreateDiaryActivity;
 import com.ernestjohndecina.intl3007_diary_application.activities.LoginActivity;
@@ -44,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     // Navigation Buttons
-    Button homeButton;
-    Button addDiaryButton;
-    Button searchDiaryButton;
+    ImageButton homeButton;
+    ImageButton addDiaryButton;
+    ImageButton searchDiaryButton;
 
 
     @Override
