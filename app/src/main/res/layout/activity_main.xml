@@ -11,60 +11,79 @@
         android:id="@+id/fragmentContainerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/MainActivityNavBar"
+        app:layout_constraintBottom_toTopOf="@id/MainActivityNavBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <LinearLayout
+        android:id="@+id/MainActivityNavBar"
+        android:layout_width="414dp"
+        android:layout_height="67dp"
+        android:background="@drawable/nav_bg"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/HomeButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/home_bttn"
+            android:scaleType="centerInside"
+            android:padding="5dp"
+            android:background="?attr/selectableItemBackground" />
+
+        <ImageButton
+            android:id="@+id/button"
+            android:layout_width="126dp"
+            android:layout_height="122dp"
+            android:background="@color/brown"
+            tools:layout_editor_absoluteX="152dp"
+            tools:layout_editor_absoluteY="576dp" />
+
+        <ImageButton
+            android:id="@+id/SearchDiaryButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/search_button"
+            android:scaleType="centerInside"
+            android:padding="5dp"
+            android:background="?attr/selectableItemBackground" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/buttonbg"
+        android:layout_width="151dp"
+        android:layout_height="154dp"
+        android:background="@drawable/circle_shape"
+        android:src="@drawable/circle_nav_bg2"
+        app:layout_constraintBottom_toBottomOf="@+id/MainActivityNavBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.457"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fragmentContainerView"
         app:layout_constraintVertical_bias="1.0" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/MainActivityNavBar"
-        android:layout_width="0dp"
-        android:layout_height="130dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageButton
+        android:id="@+id/AddDiaryButton"
+        android:layout_width="120dp"
+        android:layout_height="115dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/circle_shape"
+        android:padding="5dp"
+        android:src="@drawable/add_bttn"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonbg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/HomeButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/darker_gray"
-                android:stateListAnimator="@null"
-                android:text="Home" />
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:cardCornerRadius="50dp">
-
-                <Button
-                    android:id="@+id/AddDiaryButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Add Diary"
-                    android:background="@android:color/darker_gray"
-                    android:stateListAnimator="@null" />
-            </androidx.cardview.widget.CardView>
-
-            <Button
-                android:id="@+id/SearchDiaryButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Search"
-                android:background="@android:color/darker_gray"
-                android:stateListAnimator="@null" />
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
