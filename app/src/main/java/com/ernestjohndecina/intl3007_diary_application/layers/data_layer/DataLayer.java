@@ -70,6 +70,7 @@ public class DataLayer {
             String timestamp,
             String location,
             String last_update,
+            Integer mood,
             ArrayList<byte[]> encryptedBitmapArrayList,
             ArrayList<byte[]> encryptedAudioArrayList
     ) {
@@ -82,6 +83,7 @@ public class DataLayer {
         // newDiaryEntry.numAudio = encryptedAudioArrayList.size();
         newDiaryEntry.location = location;
         newDiaryEntry.LastUpdate = last_update;
+        newDiaryEntry.mood = mood;
 
         // Store dairy
         id = diaryDatabase.diaryEntryDao().insertDiaryEntry(newDiaryEntry);

@@ -53,6 +53,7 @@ public class SecurityLayer {
             String timestamp,
             String location,
             String last_update,
+            Integer mood,
             ArrayList<Bitmap> bitmapArrayList
     ) {
         ArrayList<byte[]> encryptedBitmapArrayList = new ArrayList<>();
@@ -81,6 +82,7 @@ public class SecurityLayer {
                 encryptedTimestamp,
                 encryptedLocation,
                 encryptedLastUpdate,
+                mood,
                 encryptedBitmapArrayList,
                 null
         );

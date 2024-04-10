@@ -5,6 +5,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -26,6 +30,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -41,6 +46,10 @@ public class CreateEntryActivity extends AppCompatActivity {
 
     Intent i;
     ActivityResultLauncher<Intent> launcher;
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat outputDateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat inputDateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
 
 
     ArrayList<Uri> uriArrayList = new ArrayList<>();
@@ -165,23 +174,33 @@ public class CreateEntryActivity extends AppCompatActivity {
         // Get Text
         String title = String.valueOf(titleEditText.getText());
         String content = String.valueOf(contentEntryEditText.getText());
+        Integer mood = 0;
 
 
         // Get Date
         int minutes = Calendar.getInstance().get(Calendar.MINUTE);
         int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        int month = Calendar.getInstance().get(Calendar.MONTH);
+        int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int year = Calendar.getInstance().get(Calendar.YEAR);
 
-        String dateString = hour + ":" + minutes + " " + day + "/" + month + "/" + year;
+        Date date = null;
 
+        try {
+            date = inputDateFormat.parse(hour + ":" + minutes + " " + day + "/" + month + "/" + year);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        String dateString = outputDateFormat.format(date);
+        Toast.makeText(this, dateString, Toast.LENGTH_SHORT).show();
         systemFeatures.diaryFeatures.createDiaryEntry(
                 title,
                 content,
                 dateString,
                 "test location",
                 dateString,
+                mood,
                 uriArrayList
         );
     }

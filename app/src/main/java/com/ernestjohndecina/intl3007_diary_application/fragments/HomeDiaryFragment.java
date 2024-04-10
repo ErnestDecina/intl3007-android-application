@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ernestjohndecina.intl3007_diary_application.R;
 import com.ernestjohndecina.intl3007_diary_application.database.entities.DiaryEntry;
@@ -70,10 +72,22 @@ public class HomeDiaryFragment extends Fragment {
     public void setEntryRecyclerView(View view) {
             this.entryRecyclerView = view.findViewById(R.id.entryRecyclerView);
             this.entryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+
+
+
+
+
+
+
+
             // Get Diary Entries
             diaryEntryArrayList = (ArrayList<DiaryEntry>) systemFeatures.diaryFeatures.getAllDiaryEntries();
 
-            DiaryEntryAdapter adapter = new DiaryEntryAdapter(diaryEntryArrayList); // Populate with dummy entries
+            DiaryEntryAdapter adapter = new DiaryEntryAdapter(getActivity(), diaryEntryArrayList); // Populate with dummy entries
             this.entryRecyclerView.setAdapter(adapter);
+
+
     }
 }

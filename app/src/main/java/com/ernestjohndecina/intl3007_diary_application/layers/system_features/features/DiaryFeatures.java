@@ -41,6 +41,7 @@ public class DiaryFeatures {
             String timestamp,
             String location,
             String last_update,
+            Integer mood,
             ArrayList<Uri> uriArrayList
     ) {
         executorService.submit(() -> {
@@ -64,6 +65,7 @@ public class DiaryFeatures {
                     timestamp,
                     location,
                     last_update,
+                    mood,
                     bitmapArrayList
             );
         });

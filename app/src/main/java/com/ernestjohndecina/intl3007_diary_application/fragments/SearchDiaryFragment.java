@@ -62,7 +62,7 @@ public class SearchDiaryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search_diary, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewDiaryEntries);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new DiaryEntryAdapter(systemFeatures.diaryFeatures.getAllDiaryEntries()); // Populate with dummy entries
+        adapter = new DiaryEntryAdapter(getActivity(), systemFeatures.diaryFeatures.getAllDiaryEntries()); // Populate with dummy entries
         recyclerView.setAdapter(adapter);
 
         dropdown = view.findViewById(R.id.dropdown);
