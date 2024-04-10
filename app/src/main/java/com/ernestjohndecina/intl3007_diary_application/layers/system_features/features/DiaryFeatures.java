@@ -83,4 +83,8 @@ public class DiaryFeatures {
         return securityLayer.decryptImages(entry);
     }
 
+    public byte[] getDiaryEntryAudio(DiaryEntry entry) {
+        return securityLayer.decryptAudio(entry);
+    }
+
 }

@@ -72,7 +72,7 @@ public class DataLayer {
             String last_update,
             Integer mood,
             ArrayList<byte[]> encryptedBitmapArrayList,
-            ArrayList<byte[]> encryptedAudioArrayList
+            byte[] encryptedAudio
     ) {
         // Creating Diary Entry
         DiaryEntry newDiaryEntry = new DiaryEntry();
@@ -112,6 +112,26 @@ public class DataLayer {
 
             j++;
         } // End foreach
+
+
+        // Write Audio
+        executorService.submit(() -> {
+            String rootImages = root + "/entries/" + id + "/audio";
+            File rootFolder = new File(rootImages);
+            rootFolder.mkdirs();
+
+            File image = new File(rootImages,  "audio.bin");
+
+            try {
+                image.createNewFile();
+                FileOutputStream stream = new FileOutputStream(image);
+                stream.write(encryptedAudio);
+                stream.close();
+            } catch (IOException e) {
+                Log.d("TEST", e.toString());
+                throw new RuntimeException(e);
+            }
+        });
     } // End writeDiaryEntry()
 
 
@@ -122,6 +142,16 @@ public class DataLayer {
         return executorService.submit(() -> {
             List<DiaryEntry> diaryEntries = diaryDatabase.diaryEntryDao().selectAllDiaryEntry();
             return diaryEntries;
+        });
+    }
+
+    public Future<byte[]> readDiaryEntryAudio(
+            Long id
+    ) {
+        return executorService.submit(() -> {
+            String rootImages = root + "/entries/" + id + "/audio";
+            File audio = new File(rootImages + "/audio.bin");
+            return Files.readAllBytes(audio.toPath());
         });
     }
 
