@@ -1,6 +1,10 @@
 package com.ernestjohndecina.intl3007_diary_application.utilites.security;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import java.io.ByteArrayOutputStream;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -25,6 +29,8 @@ public class Crypt {
     String key = "YourEncryptionKe";
     String iv = "InitializationVec";
     int KEY_SIZE = 128;
+
+
 
 
     public Crypt() {
@@ -73,12 +79,36 @@ public class Crypt {
     }
 
 
-    public void encryptImage() {
+    public byte[] encryptImage(Bitmap bitmap) {
+        // Convert bitmap to byteArray
+        try {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] bitmapByteArray = stream.toByteArray();
+
+            Cipher encryptionCipher = Cipher.getInstance("AES/GCM/NoPadding");
+            encryptionCipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);
+            return encryptionCipher.doFinal(bitmapByteArray);
+
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException |
+                 BadPaddingException | IllegalBlockSizeException |
+                 InvalidAlgorithmParameterException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
-
-    public void decryptImage() {
+    public Bitmap decryptImage(byte[] encryptedBitmap) {
+        try {
+            Cipher decryptionCipher = Cipher.getInstance("AES/GCM/NoPadding");
+            decryptionCipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
+            byte[] decryptedBytes = decryptionCipher.doFinal(encryptedBitmap);
+            return BitmapFactory.decodeByteArray(decryptedBytes, 0, decryptedBytes.length);
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException |
+                 InvalidAlgorithmParameterException | IllegalBlockSizeException |
+                 BadPaddingException | InvalidKeyException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

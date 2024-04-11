@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.ernestjohndecina.intl3007_diary_application.R;
@@ -14,6 +15,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
 
 public class LoginActivity extends AppCompatActivity {
     ExecutorService executorService;
@@ -25,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText pinLoginEditText;
 
     // Button
-    Button loginButton;
+    ImageButton loginButton;
 
 
     @Override
