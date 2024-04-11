@@ -11,17 +11,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/background_diary">
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Search Diary Fragment"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.636" />
+        <!-- Replace the Button with a Spinner -->
 
         <TextView
             android:id="@+id/search_text"
@@ -33,18 +23,16 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.123"
+            app:layout_constraintHorizontal_bias="0.138"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.159" />
-
-        <!-- Replace the Button with a Spinner -->
+            app:layout_constraintVertical_bias="0.147" />
 
         <SearchView
             android:id="@+id/searchView"
             android:layout_width="236dp"
             android:layout_height="49dp"
-            android:background="#FAF7F6"
+            android:background="#FFFEFD"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.104"
@@ -66,14 +54,14 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewDiaryEntries"
-            android:layout_width="375dp"
-            android:layout_height="283dp"
+            android:layout_width="361dp"
+            android:layout_height="555dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.36"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.353" />
+            app:layout_constraintVertical_bias="0.829" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
