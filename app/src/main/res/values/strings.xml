@@ -1,5 +1,21 @@
 <resources>
     <string name="app_name">intl3007-diary-application</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Replace with actual text used in the 'Hello blank fragment' context -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_button">Login button</string>
+    <string name="cat_mood">your mood in cat form\n</string>
+    <string-array name="dropdown_options">
+        <item>Newest</item>
+        <item>Oldest</item>
+    </string-array>
+
+    <string-array name="mood_options">
+        <item>😊</item>
+        <item>😐</item>
+        <item>😔</item>
+    </string-array>
+
+    <string name="mood_happy">😊</string>
+    <string name="mood_ok">😐</string>
+    <string name="mood_sad">😔</string>
 </resources>
