@@ -40,11 +40,11 @@
         android:layout_marginTop="4dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textSize="20sp"
-        android:textStyle="bold"
         android:textColor="#000"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="55px"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/tvLastUpdated"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDate"
         tools:text="Trip to Seoul that might be very long and needs to be truncated" />
 
@@ -54,7 +54,7 @@
         android:layout_height="21dp"
         android:padding="5dp"
         android:textColor="#000"
-        android:textSize="10sp"
+        android:textSize="25px"
         app:layout_constraintBottom_toBottomOf="@+id/tvTrip"
         app:layout_constraintEnd_toEndOf="@+id/ivIcon"
         app:layout_constraintStart_toEndOf="@+id/tvTrip"

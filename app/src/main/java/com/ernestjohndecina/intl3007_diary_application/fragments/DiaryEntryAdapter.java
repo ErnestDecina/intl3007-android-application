@@ -17,6 +17,7 @@ import com.ernestjohndecina.intl3007_diary_application.R;
 import com.ernestjohndecina.intl3007_diary_application.activities.ViewEditDiaryActivity;
 import com.ernestjohndecina.intl3007_diary_application.database.entities.DiaryEntry;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.ViewHolder> {
@@ -45,12 +46,21 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Vi
         return holder;
     }
 
+    public void updateDiaryEntries(List<DiaryEntry> newDiaryEntries) {
+        entries = newDiaryEntries;
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DiaryEntry entry = entries.get(position);
         holder.titleTextView.setText(entry.title);
         holder.date.setText(entry.timestamp);
-        holder.lastUpdatedTextView.setText("last updated on " + entry.LastUpdate);
+
+        String[] dates = entry.LastUpdate.split(" ");
+
+        Log.d("TEST", Arrays.toString(dates));
+
+        holder.lastUpdatedTextView.setText("last updated " + dates[1]);
         holder.id = entry.entryID - 1;
 
         if(entry.mood == 1) {

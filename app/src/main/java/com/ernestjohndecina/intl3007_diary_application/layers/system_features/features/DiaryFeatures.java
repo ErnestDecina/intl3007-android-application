@@ -1,5 +1,6 @@
 package com.ernestjohndecina.intl3007_diary_application.layers.system_features.features;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -8,11 +9,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.ernestjohndecina.intl3007_diary_application.database.entities.DiaryEntry;
+import com.ernestjohndecina.intl3007_diary_application.fragments.SearchDiaryFragment;
 import com.ernestjohndecina.intl3007_diary_application.layers.security_layer.SecurityLayer;
 
 import java.io.IOException;
 import java.net.URI;
 import java.nio.InvalidMarkException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +28,8 @@ public class DiaryFeatures {
     ExecutorService executorService;
 
     SecurityLayer securityLayer;
+
+    List<DiaryEntry> diaryEntries;
 
     public DiaryFeatures(
         Activity mainActivity,
@@ -73,7 +79,8 @@ public class DiaryFeatures {
 
     public List<DiaryEntry> getAllDiaryEntries() {
         try {
-            return securityLayer.decryptAllDiaryEntry();
+            diaryEntries = securityLayer.decryptAllDiaryEntry();
+            return diaryEntries;
         } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -86,5 +93,61 @@ public class DiaryFeatures {
     public byte[] getDiaryEntryAudio(DiaryEntry entry) {
         return securityLayer.decryptAudio(entry);
     }
+
+    public ArrayList<DiaryEntry> searchDiaryEntry(String searchQuery) {
+        // Check if its in date format
+
+        if(searchQuery.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            return searchDiaryEntryByDate(searchQuery);
+        }
+
+
+        // Check for Titles
+
+        return searchDiaryEntryByTitle(searchQuery);
+    }
+
+
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat diaryDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private ArrayList<DiaryEntry> searchDiaryEntryByDate(String searchDateString) {
+        ArrayList<DiaryEntry> results = new ArrayList<>();
+        try {
+            Date searchDate = inputDateFormat.parse(searchDateString);
+
+            for (DiaryEntry diaryEntry: diaryEntries) {
+                String[] diaryStringDate = diaryEntry.LastUpdate.split(" ");
+                Date diaryDate = diaryDateFormat.parse(diaryStringDate[1]);
+
+                if(diaryDate.equals(searchDate)) {
+                    results.add(diaryEntry);
+                }
+            }
+
+
+
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return results;
+    }
+
+    private  ArrayList<DiaryEntry> searchDiaryEntryByTitle(String title) {
+        ArrayList<DiaryEntry> results = new ArrayList<>();
+
+        for (DiaryEntry diaryEntry: diaryEntries) {
+            if(diaryEntry.title.contains(title)) {
+                results.add(diaryEntry);
+            }
+        }
+
+        return results;
+    }
+
+
 
 }

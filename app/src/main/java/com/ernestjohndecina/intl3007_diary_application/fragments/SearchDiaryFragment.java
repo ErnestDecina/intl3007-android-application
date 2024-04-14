@@ -1,12 +1,15 @@
 package com.ernestjohndecina.intl3007_diary_application.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,6 +40,9 @@ public class SearchDiaryFragment extends Fragment {
     private RecyclerView recyclerView;
     private DiaryEntryAdapter adapter;
     private Spinner dropdown;
+    private SearchView searchView;
+    private List<DiaryEntry> diaryEntries;
+
 
     public SearchDiaryFragment() {
         // Required empty public constructor
@@ -67,7 +73,8 @@ public class SearchDiaryFragment extends Fragment {
         linearLayoutManager.setStackFromEnd(true);
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new DiaryEntryAdapter(getActivity(), systemFeatures.diaryFeatures.getAllDiaryEntries()); // Populate with dummy entries
+        diaryEntries = systemFeatures.diaryFeatures.getAllDiaryEntries();
+        adapter = new DiaryEntryAdapter(getActivity(), diaryEntries); // Populate with dummy entries
         recyclerView.setAdapter(adapter);
 
         dropdown = view.findViewById(R.id.dropdown);
@@ -97,29 +104,40 @@ public class SearchDiaryFragment extends Fragment {
             }
         });
 
+        searchView = view.findViewById(R.id.searchView);
+        setupSearchView();
+
+
         return view;
     }
-
-
-    private List<DiaryEntry> getDummyDiaryEntries() {
-        List<DiaryEntry> entries = new ArrayList<>();
-
-        for(int i = 0; i < 10; i++) {
-            DiaryEntry temp = new DiaryEntry();
-            temp.title = "Title " + i;
-            temp.LastUpdate = "test/test/test";
-
-            entries.add(temp);
-        }
-
-        return entries;
-    }
-
-
 
     public void setSystemFeatures(
             SystemFeatures systemFeatures
     ) {
         this.systemFeatures = systemFeatures;
+    }
+
+    public void setupSearchView() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                diaryEntries = systemFeatures.diaryFeatures.searchDiaryEntry(query);
+                adapter.updateDiaryEntries(diaryEntries);
+                adapter.notifyDataSetChanged();
+                Log.d("TEST", "" + diaryEntries.size());
+                return false;
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                diaryEntries = systemFeatures.diaryFeatures.searchDiaryEntry(newText);
+                adapter.updateDiaryEntries(diaryEntries);
+                adapter.notifyDataSetChanged();
+                Log.d("TEST", "" + diaryEntries.size());
+                return false;
+            }
+        });
     }
 }
