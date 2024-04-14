@@ -54,6 +54,7 @@ public class CreateEntryActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> launcher;
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat outputDateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+    @SuppressLint("SimpleDateFormat")
     SimpleDateFormat displayDateFormat = new SimpleDateFormat("MMMM yyyy HH:mm");
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat inputDateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
@@ -124,8 +125,8 @@ public class CreateEntryActivity extends AppCompatActivity {
     }
 
     private void setupTextViews() {
-        dayTextView = findViewById(R.id.dayTextView);
-        monthYearTimeTextView = findViewById(R.id.monthYearTimeTextView);
+        dayTextView = findViewById(R.id.dayTextView2);
+        monthYearTimeTextView = findViewById(R.id.monthYearTimeTextView2);
 
         // Get Date
         int minutes = Calendar.getInstance().get(Calendar.MINUTE);
@@ -150,13 +151,13 @@ public class CreateEntryActivity extends AppCompatActivity {
     }
 
     private void setupEditText() {
-        this.titleEditText = findViewById(R.id.titleEditText);
-        this.contentEntryEditText = findViewById(R.id.contentEntryEditText);
+        this.titleEditText = findViewById(R.id.titleTextView);
+        this.contentEntryEditText = findViewById(R.id.contentEntryTextView);
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private void setupButtons() {
-        buttonCancelDiaryEntry = findViewById(R.id.cancelImageButton);
+        buttonCancelDiaryEntry = findViewById(R.id.cancelImageButton2);
         buttonGetImages = findViewById(R.id.buttonGetImages);
         buttonSave = findViewById(R.id.buttonSave);
         buttonGetAudio = findViewById(R.id.buttonGetAudio);

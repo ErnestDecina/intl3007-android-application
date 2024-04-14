@@ -1,21 +1,29 @@
 package com.ernestjohndecina.intl3007_diary_application.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ernestjohndecina.intl3007_diary_application.R;
 import com.ernestjohndecina.intl3007_diary_application.database.entities.DiaryEntry;
 import com.ernestjohndecina.intl3007_diary_application.fragments.DiaryEntryAdapter;
+import com.ernestjohndecina.intl3007_diary_application.fragments.ImageViewEditDiaryEntryAdapter;
 import com.ernestjohndecina.intl3007_diary_application.layers.system_features.SystemFeatures;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -27,12 +35,31 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
 
 
     DiaryEntry diaryEntry;
+    ArrayList<Bitmap> imageArrayList = new ArrayList<>();
     long entryID;
 
 
 
     private MediaPlayer mediaPlayer;
     private static String fileName;
+
+    //
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat outputDateFormat = new SimpleDateFormat("MMMM yyyy HH:mm");
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat inputDateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+
+
+    // UI Components
+    // Text Views
+    TextView dayTextView;
+    TextView monthYearTimeTextView;
+    TextView diaryEntryTitleTextView;
+    TextView diaryEntryContentTextView;
+    TextView moodTextVIew;
+
+    // Recycler View
+    RecyclerView imageRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +91,8 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
         setupMediaPlayer();
         getEntryID();
         loadDiaryEntry();
-
+        setupTextViews();
+        setupRecyclerView();
     }
 
     private void createThreadExecutor() {
@@ -84,6 +112,48 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
         );
     }
 
+    private void setupTextViews() {
+        dayTextView = findViewById(R.id.dayTextView2);
+        monthYearTimeTextView = findViewById(R.id.monthYearTimeTextView2);
+        diaryEntryTitleTextView = findViewById(R.id.titleTextView);
+        diaryEntryContentTextView = findViewById(R.id.contentEntryTextView);
+        moodTextVIew = findViewById(R.id.moodTextView);
+
+
+        // Get day and date
+        try {
+            Log.d("TEST", diaryEntry.LastUpdate);
+            Date date = inputDateFormat.parse(diaryEntry.LastUpdate);
+
+            String dateString = outputDateFormat.format(date);
+            Integer day = date.getDate();
+
+            dayTextView.setText(String.valueOf(day));
+            monthYearTimeTextView.setText(dateString);
+        } catch (Exception e) {
+
+        }
+
+        diaryEntryTitleTextView.setText(diaryEntry.title);
+        diaryEntryContentTextView.setText(diaryEntry.content);
+
+        if(diaryEntry.mood == 1) {
+            moodTextVIew.setText(R.string.mood_happy);
+        } else if (diaryEntry.mood == 0) {
+            moodTextVIew.setText(R.string.mood_ok);
+        } else if (diaryEntry.mood == -1) {
+            moodTextVIew.setText(R.string.mood_sad);
+        }
+    }
+
+    private void setupRecyclerView() {
+        imageRecyclerView = findViewById(R.id.imageRecyclerView);
+
+        imageRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ImageViewEditDiaryEntryAdapter imageViewEditDiaryEntryAdapter = new ImageViewEditDiaryEntryAdapter(this, imageArrayList);
+        imageRecyclerView.setAdapter(imageViewEditDiaryEntryAdapter);
+    }
+
     private void getEntryID() {
         Bundle bundle = getIntent().getExtras();
         entryID = bundle.getLong(DiaryEntryAdapter.ENTRY_ID);
@@ -93,12 +163,10 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
         diaryEntry = systemFeatures.diaryFeatures.getAllDiaryEntries().get((int) entryID);
 
         // Load Images
-
+        loadImages();
 
         // Load Audio
         loadAudio();
-
-        Toast.makeText(this, "Title: " + diaryEntry.title + " Mood: " + diaryEntry.mood, Toast.LENGTH_SHORT).show();
     }
 
     private void setupMediaPlayer() {
@@ -127,6 +195,10 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
         catch(IOException ioe)  {
             System.out.println("IOException : " + ioe);
         }
+    }
+
+    private void loadImages() {
+        imageArrayList = systemFeatures.diaryFeatures.getDiaryEntryImages(diaryEntry);
     }
 
     private void playAudio() {

@@ -61,7 +61,12 @@ public class SearchDiaryFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_search_diary, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewDiaryEntries);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+
+        recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new DiaryEntryAdapter(getActivity(), systemFeatures.diaryFeatures.getAllDiaryEntries()); // Populate with dummy entries
         recyclerView.setAdapter(adapter);
 
@@ -78,9 +83,11 @@ public class SearchDiaryFragment extends Fragment {
                 String selectedItem = parentView.getItemAtPosition(position).toString();
                 // You can perform different actions based on the selected item
                 if (selectedItem.equals("Newest")) {
-                    // Handle when "Newest" is selected
+                    linearLayoutManager.setReverseLayout(true);
+                    linearLayoutManager.setStackFromEnd(true);
                 } else if (selectedItem.equals("Oldest")) {
-                    // Handle when "Oldest" is selected
+                    linearLayoutManager.setReverseLayout(false);
+                    linearLayoutManager.setStackFromEnd(false);
                 }
             }
 
