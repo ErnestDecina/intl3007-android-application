@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="11/02/24" />
 
-    <ImageView
+    <TextView
         android:id="@+id/ivIcon"
         android:layout_width="28dp"
         android:layout_height="30dp"
@@ -29,7 +29,8 @@
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="3dp"
         android:contentDescription="@string/cat_mood"
-        android:src="@drawable/cat_mood"
+        android:text="@string/mood_ok"
+        android:textSize="60px"
         app:layout_constraintBottom_toTopOf="@+id/tvLastUpdated"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

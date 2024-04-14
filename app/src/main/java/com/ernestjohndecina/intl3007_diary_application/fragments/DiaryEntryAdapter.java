@@ -52,6 +52,16 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Vi
         holder.date.setText(entry.timestamp);
         holder.lastUpdatedTextView.setText("last updated on " + entry.LastUpdate);
         holder.id = entry.entryID - 1;
+
+        if(entry.mood == 1) {
+            holder.moodTextView.setText(R.string.mood_happy);
+        } else if (entry.mood == 0) {
+            holder.moodTextView.setText(R.string.mood_ok);
+        } else if (entry.mood == -1) {
+            holder.moodTextView.setText(R.string.mood_sad);
+        }
+
+
     }
 
     @Override
@@ -63,6 +73,7 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Vi
         TextView titleTextView;
         TextView date;
         TextView lastUpdatedTextView;
+        TextView moodTextView;
         Long id;
 
 
@@ -71,6 +82,7 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Vi
             titleTextView = itemView.findViewById(R.id.tvTrip);
             date = itemView.findViewById(R.id.tvDate);
             lastUpdatedTextView = itemView.findViewById(R.id.tvLastUpdated);
+            moodTextView = itemView.findViewById(R.id.ivIcon);
         }
     }
 
