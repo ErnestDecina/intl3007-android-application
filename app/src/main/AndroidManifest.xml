@@ -16,7 +16,7 @@
             android:name=".activities.ViewEditDiaryActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.CreateDiaryActivity"
+            android:name=".activities.CreateEntryActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"

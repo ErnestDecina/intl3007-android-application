@@ -11,9 +11,15 @@ import com.ernestjohndecina.intl3007_diary_application.database.entities.DiaryEn
 import com.ernestjohndecina.intl3007_diary_application.database.entities.User;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * This Class will interface with the Room Database & the file storage
@@ -28,8 +34,12 @@ public class DataLayer {
     // ExecutorService
     ExecutorService executorService;
 
+    String root;
 
-    /**
+    static Long id = 0L;
+
+
+    /*
      * DataLayer Constructor
      */
     public DataLayer(
@@ -39,6 +49,7 @@ public class DataLayer {
         this.mainActivity = mainActivity;
         this.executorService = executorService;
         initRoomDatabase();
+        root = mainActivity.getExternalFilesDir("").getAbsolutePath();
     }
 
 
@@ -54,31 +65,83 @@ public class DataLayer {
      *  Write Diary Entry
      */
     public void writeDiaryEntry(
-
             String title,
             String content,
             String timestamp,
-            String image_url,
-            String Voice_Rec_url,
             String location,
-            String last_update
-
+            String last_update,
+            ArrayList<byte[]> encryptedBitmapArrayList,
+            ArrayList<byte[]> encryptedAudioArrayList
     ) {
+        // Creating Diary Entry
         DiaryEntry newDiaryEntry = new DiaryEntry();
         newDiaryEntry.title = title;
         newDiaryEntry.content = content;
         newDiaryEntry.timestamp = timestamp;
-        newDiaryEntry.imageUrl = image_url;
-        newDiaryEntry.VoiceRecUrl= Voice_Rec_url;
+        newDiaryEntry.numImages = encryptedBitmapArrayList.size();
+        // newDiaryEntry.numAudio = encryptedAudioArrayList.size();
         newDiaryEntry.location = location;
         newDiaryEntry.LastUpdate = last_update;
 
+        // Store dairy
+        id = diaryDatabase.diaryEntryDao().insertDiaryEntry(newDiaryEntry);
+
+        // Write image to file storage
+        int j = 0;
+        for (byte[] encryptedBitmap : encryptedBitmapArrayList) {
+            int finalJ = j;
+            executorService.submit(() -> {
+                String rootImages = root + "/entries/" + id + "/images";
+                File rootFolder = new File(rootImages);
+                rootFolder.mkdirs();
+
+                File image = new File(rootImages, finalJ + "_image.bin");
+
+                try {
+                    image.createNewFile();
+                    FileOutputStream stream = new FileOutputStream(image);
+                    stream.write(encryptedBitmap);
+                    stream.close();
+                } catch (IOException e) {
+                    Log.d("TEST", e.toString());
+                    throw new RuntimeException(e);
+                }
+            });
+
+            j++;
+        } // End foreach
+    } // End writeDiaryEntry()
 
 
-        executorService.submit(() -> {
-           diaryDatabase.diaryEntryDao().insertDiaryEntry(newDiaryEntry);
+    /**
+     *
+     */
+    public Future<List<DiaryEntry>> readAllDiaryEntry() {
+        return executorService.submit(() -> {
+            List<DiaryEntry> diaryEntries = diaryDatabase.diaryEntryDao().selectAllDiaryEntry();
+            return diaryEntries;
         });
     }
+
+    public Future<List<byte[]>> readDiaryEntryImages(
+            Long id,
+            Integer numImages
+    ) {
+        return executorService.submit(() -> {
+            List<byte[]> encryptedBitmaps = new ArrayList<>();
+            String rootImages = root + "/entries/" + id + "/images";
+
+            for(int i = 0; i < numImages; i++) {
+                File image = new File(rootImages + "/" + i + "_image.bin");
+                Log.d("TEST", String.valueOf(image.toPath()));
+                byte[] imageFile = Files.readAllBytes(image.toPath());
+                encryptedBitmaps.add(imageFile);
+            } // End for loop
+
+            return encryptedBitmaps;
+        });
+    }
+
 
     /**
      *  Store user login details
