@@ -16,15 +16,15 @@
 
         <!-- TextView to display "Hi [User's Name]" in the top corner -->
 
+
         <ImageView
             android:id="@+id/backgroundImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/app_background"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="-83dp" />
-
+            tools:layout_editor_absoluteX="34dp"
+            tools:layout_editor_absoluteY="84dp" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -57,8 +57,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/entryRecyclerView"
-            android:layout_width="343dp"
-            android:layout_height="60dp"
+            android:layout_width="365dp"
+            android:layout_height="561dp"
             app:layout_constraintBottom_toBottomOf="@+id/backgroundImageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

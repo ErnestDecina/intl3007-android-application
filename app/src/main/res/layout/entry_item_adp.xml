@@ -49,7 +49,7 @@
 
     <TextView
         android:id="@+id/tvLastUpdated"
-        android:layout_width="140dp"
+        android:layout_width="115dp"
         android:layout_height="21dp"
         android:padding="5dp"
         android:textColor="#000"
