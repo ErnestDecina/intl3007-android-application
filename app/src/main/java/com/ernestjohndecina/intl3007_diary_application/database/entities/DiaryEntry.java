@@ -1,14 +1,19 @@
 package com.ernestjohndecina.intl3007_diary_application.database.entities;
 
+import android.graphics.Bitmap;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import java.util.ArrayList;
 
 @Entity
 public class DiaryEntry {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "entry_ID")
-    public Integer entryID;
+    public Long entryID;
 
     @ColumnInfo(name = "title")
     public String title;
@@ -16,13 +21,15 @@ public class DiaryEntry {
     public String content;
     @ColumnInfo(name = "timestamp")
     public String timestamp;
-    @ColumnInfo(name = "image_url")
-    public String imageUrl;
-    @ColumnInfo(name = "voice_rec_url")
-    public String VoiceRecUrl;
+    @ColumnInfo(name = "num_images")
+    public Integer numImages;
+    @ColumnInfo(name = "num_audio")
+    public Integer numAudio;
     @ColumnInfo(name = "location")
     public String location;
     @ColumnInfo(name = "last_update")
     public String LastUpdate;
 
+    @ColumnInfo(name = "mood")
+    public Integer mood;
 }

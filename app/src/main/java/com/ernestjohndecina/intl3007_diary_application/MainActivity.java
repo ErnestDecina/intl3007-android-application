@@ -8,8 +8,9 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageButton;
 
-import com.ernestjohndecina.intl3007_diary_application.activities.CreateDiaryActivity;
+import com.ernestjohndecina.intl3007_diary_application.activities.CreateEntryActivity;
 import com.ernestjohndecina.intl3007_diary_application.activities.LoginActivity;
 import com.ernestjohndecina.intl3007_diary_application.activities.RegisterActivity;
 import com.ernestjohndecina.intl3007_diary_application.database.entities.User;
@@ -44,9 +45,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     // Navigation Buttons
-    Button homeButton;
-    Button addDiaryButton;
-    Button searchDiaryButton;
+    ImageButton homeButton;
+    ImageButton addDiaryButton;
+    ImageButton searchDiaryButton;
+
+
+    // Fragments
+    SearchDiaryFragment searchDiaryFragment;
+    HomeDiaryFragment homeDiaryFragment;
 
 
     @Override
@@ -56,16 +62,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         createDependencies();
-
         test();
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
         showLoginActivity();
         showRegisterActivity();
+        changeFragmentHome();
     }
 
 
@@ -73,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         createThreadExecutor();
         createSystemFeatures();
         setupActivities();
+        setupFragments();
         setupButtons();
     }
 
@@ -99,7 +106,15 @@ public class MainActivity extends AppCompatActivity {
     private void setupActivities() {
         registerActivity = new Intent(this, RegisterActivity.class);
         loginActivity = new Intent(this, LoginActivity.class);
-        addDiaryEntryActivity = new Intent(this, CreateDiaryActivity.class);
+        addDiaryEntryActivity = new Intent(this, CreateEntryActivity.class);
+    }
+
+    private void setupFragments() {
+        searchDiaryFragment = new SearchDiaryFragment();
+        searchDiaryFragment.setSystemFeatures(systemFeatures);
+
+        homeDiaryFragment = new HomeDiaryFragment();
+        homeDiaryFragment.setSystemFeatures(systemFeatures);
     }
 
 
@@ -115,16 +130,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void test() {
-//        systemFeatures.diaryFeatures.createDiaryEntry(
-//                "Test Title",
-//                "Hello world!",
-//                "Test timestamp",
-//                "Test Image Url",
-//                "Test Voice URL",
-//                "Test Location",
-//                "Test Last Update"
-//        );
-
     }
 
 
@@ -145,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void showLoginActivity() {
-        Log.d("TEST", "User logged in: " + checkUserLoggedIn());
         if(!checkUserRegistered()) return;
         if(checkUserLoggedIn()) return;
         startActivity(loginActivity);
@@ -154,14 +158,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void changeFragmentHome() {
         fragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, new HomeDiaryFragment(), null)
+                .replace(R.id.fragmentContainerView, homeDiaryFragment, null)
                 .commit();
     }
 
 
     private void changeFragmentSearch() {
         fragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, SearchDiaryFragment.class, null)
+                .replace(R.id.fragmentContainerView, searchDiaryFragment, null)
                 .commit();
     }
 
