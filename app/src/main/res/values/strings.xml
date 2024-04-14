@@ -8,4 +8,10 @@
         <item>Newest</item>
         <item>Oldest</item>
     </string-array>
+
+    <string-array name="mood_options">
+        <item>😊</item>
+        <item>😐</item>
+        <item>😔</item>
+    </string-array>
 </resources>

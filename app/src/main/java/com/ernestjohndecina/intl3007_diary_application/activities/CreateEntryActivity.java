@@ -15,7 +15,6 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -23,10 +22,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ernestjohndecina.intl3007_diary_application.R;
@@ -52,6 +54,7 @@ public class CreateEntryActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> launcher;
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat outputDateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+    SimpleDateFormat displayDateFormat = new SimpleDateFormat("MMMM yyyy HH:mm");
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat inputDateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
 
@@ -59,17 +62,23 @@ public class CreateEntryActivity extends AppCompatActivity {
     ArrayList<Uri> uriArrayList = new ArrayList<>();
 
     // UI Components
+
+    // Text Views
+    TextView dayTextView;
+    TextView monthYearTimeTextView;
+
+    // Image Buttons
+    ImageButton buttonCancelDiaryEntry;
     ImageButton buttonGetImages;
     Button buttonSave;
     ImageButton buttonGetAudio;
-
-    ImageView testImage;
 
     // Edit Text
     EditText titleEditText;
     EditText contentEntryEditText;
 
 
+    Integer mood = 1;
 
 
     @Override
@@ -93,8 +102,8 @@ public class CreateEntryActivity extends AppCompatActivity {
         setupMediaRecorderPlayer();
         setupButtons();
         setupEditText();
-
-        testImage = findViewById(R.id.imageView4);
+        setupTextViews();
+        setupMoodDropdown();
     }
 
     private void createThreadExecutor() {
@@ -114,6 +123,32 @@ public class CreateEntryActivity extends AppCompatActivity {
         );
     }
 
+    private void setupTextViews() {
+        dayTextView = findViewById(R.id.dayTextView);
+        monthYearTimeTextView = findViewById(R.id.monthYearTimeTextView);
+
+        // Get Date
+        int minutes = Calendar.getInstance().get(Calendar.MINUTE);
+        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+
+        Date date = null;
+
+        try {
+            date = inputDateFormat.parse(hour + ":" + minutes + " " + day + "/" + month + "/" + year);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        String dateString = displayDateFormat.format(date);
+
+        dayTextView.setText(String.valueOf(day));
+        monthYearTimeTextView.setText(dateString);
+
+    }
+
     private void setupEditText() {
         this.titleEditText = findViewById(R.id.titleEditText);
         this.contentEntryEditText = findViewById(R.id.contentEntryEditText);
@@ -121,10 +156,12 @@ public class CreateEntryActivity extends AppCompatActivity {
 
     @SuppressLint("ClickableViewAccessibility")
     private void setupButtons() {
+        buttonCancelDiaryEntry = findViewById(R.id.cancelImageButton);
         buttonGetImages = findViewById(R.id.buttonGetImages);
         buttonSave = findViewById(R.id.buttonSave);
         buttonGetAudio = findViewById(R.id.buttonGetAudio);
 
+        buttonCancelDiaryEntry.setOnClickListener(v -> finish());
         buttonGetImages.setOnClickListener(v -> getImages());
         buttonSave.setOnClickListener(v -> saveEntry());
         buttonGetAudio.setOnClickListener(v -> startGetAudio());
@@ -144,6 +181,44 @@ public class CreateEntryActivity extends AppCompatActivity {
         });
 
     }
+
+    private void setupMoodDropdown() {
+        Spinner dropdown = findViewById(R.id.moodSpinner);
+
+        ArrayAdapter<CharSequence> dropdownAdapter = ArrayAdapter.createFromResource(this,
+                R.array.mood_options, android.R.layout.simple_spinner_item);
+        dropdownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+        dropdown.setAdapter(dropdownAdapter);
+
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Handle the selected item here
+                String selectedItem = parentView.getItemAtPosition(position).toString();
+                // You can perform different actions based on the selected item
+                if (selectedItem.equals("\uD83D\uDE0A")) {
+                    // Handle when "Newest" is selected
+                    mood = 1;
+                } else if (selectedItem.equals("\uD83D\uDE10")) {
+                    // Handle when "Oldest" is selected
+                    mood = 0;
+
+                } else if (selectedItem.equals("\uD83D\uDE14")) {
+                    // Handle when "Oldest" is selected
+                    mood = -1;
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Do nothing if nothing is selected
+            }
+        });
+    }
+
 
     private void setupGetImages() {
         i = new Intent(Intent.ACTION_PICK);
@@ -194,7 +269,6 @@ public class CreateEntryActivity extends AppCompatActivity {
         // Get Text
         String title = String.valueOf(titleEditText.getText());
         String content = String.valueOf(contentEntryEditText.getText());
-        Integer mood = 0;
 
 
         // Get Date

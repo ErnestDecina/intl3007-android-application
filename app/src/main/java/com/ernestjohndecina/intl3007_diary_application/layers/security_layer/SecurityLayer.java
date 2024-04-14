@@ -143,6 +143,10 @@ public class SecurityLayer {
             Future<byte[]> encryptedAudioFuture = dataLayer.readDiaryEntryAudio(id);
             byte[] encryptedAudio = encryptedAudioFuture.get();
 
+            if(encryptedAudio == null) {
+                return null;
+            }
+
             // Decrypt Audio
             return crypt.decryptAudio(encryptedAudio);
         } catch (ExecutionException e) {

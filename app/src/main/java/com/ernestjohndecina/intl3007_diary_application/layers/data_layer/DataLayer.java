@@ -149,9 +149,13 @@ public class DataLayer {
             Long id
     ) {
         return executorService.submit(() -> {
-            String rootImages = root + "/entries/" + id + "/audio";
-            File audio = new File(rootImages + "/audio.bin");
-            return Files.readAllBytes(audio.toPath());
+            try {
+                String rootImages = root + "/entries/" + id + "/audio";
+                File audio = new File(rootImages + "/audio.bin");
+                return Files.readAllBytes(audio.toPath());
+            } catch (Exception ignored) {
+                return null;
+            }
         });
     }
 

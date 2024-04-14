@@ -81,7 +81,7 @@
             android:layout_height="69dp"
             android:text="PURRSONAL PAGES"
             android:textAlignment="center"
-            android:textSize="30sp"
+            android:textSize="80px"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/login_logo"
             app:layout_constraintEnd_toEndOf="parent"

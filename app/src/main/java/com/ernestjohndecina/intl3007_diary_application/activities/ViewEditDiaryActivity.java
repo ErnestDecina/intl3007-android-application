@@ -47,6 +47,15 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         playAudio();
+
+
+    }
+
+    @Override
+    protected  void onStop() {
+        super.onStop();
+
+        // Delete cache values
     }
 
     private void createDependencies() {
@@ -89,7 +98,7 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
         // Load Audio
         loadAudio();
 
-        Toast.makeText(this, "Title: " + diaryEntry.title + " " + entryID, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Title: " + diaryEntry.title + " Mood: " + diaryEntry.mood, Toast.LENGTH_SHORT).show();
     }
 
     private void setupMediaPlayer() {
@@ -100,6 +109,11 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
 
     private void loadAudio() {
         byte[] audioBytes = systemFeatures.diaryFeatures.getDiaryEntryAudio(diaryEntry);
+
+        if(audioBytes == null) {
+            Toast.makeText(this, "No audio", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         // Write audio to cache
         try {
