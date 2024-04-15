@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/rounded_background2"
     android:padding="8dp"
-    android:layout_marginTop="8dp"
+    android:layout_marginTop="15dp"
     android:layout_marginStart="5dp"
     android:layout_marginEnd="5dp">
 
@@ -39,11 +39,11 @@
         android:layout_marginTop="4dp"
         android:ellipsize="end"
         android:maxLines="2"
+        android:textColor="#1E1E1E"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#000"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tvLastUpdated"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDate"
         tools:text="Trip to Seoul that might be very long and needs to be truncated" />
 
