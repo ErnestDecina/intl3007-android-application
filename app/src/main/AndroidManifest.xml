@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+
+    <!-- Applications -->
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,18 +17,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Intl3007diaryapplication"
         tools:targetApi="31">
+
+
+        <!-- Activities -->
+
+
         <activity
             android:name=".activities.ViewEditDiaryActivity"
             android:exported="false" />
+
+
         <activity
             android:name=".activities.CreateEntryActivity"
             android:exported="false" />
+
+
         <activity
             android:name=".activities.LoginActivity"
             android:exported="false" />
+
+
         <activity
             android:name=".activities.RegisterActivity"
             android:exported="false" />
+
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -33,6 +51,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
     </application>
 
 </manifest>

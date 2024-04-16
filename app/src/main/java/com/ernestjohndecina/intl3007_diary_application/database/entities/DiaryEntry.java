@@ -30,12 +30,6 @@ public class DiaryEntry {
     @ColumnInfo(name = "last_update")
     public String LastUpdate;
 
-    @Ignore
-    public ArrayList<Bitmap> imageArrayList;
-
-    @Ignore
-    public ArrayList<Bitmap> getImages() {
-        return null;
-    }
-
+    @ColumnInfo(name = "mood")
+    public Integer mood;
 }

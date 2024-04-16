@@ -10,6 +10,7 @@ import com.ernestjohndecina.intl3007_diary_application.database.entities.User;
 import com.ernestjohndecina.intl3007_diary_application.layers.data_layer.DataLayer;
 import com.ernestjohndecina.intl3007_diary_application.utilites.security.Crypt;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,7 @@ public class SecurityLayer {
             String timestamp,
             String location,
             String last_update,
+            Integer mood,
             ArrayList<Bitmap> bitmapArrayList
     ) {
         ArrayList<byte[]> encryptedBitmapArrayList = new ArrayList<>();
@@ -71,6 +73,11 @@ public class SecurityLayer {
         } // End foreach
 
         // Encrypt Audio
+        String fileName = mainActivity.getExternalCacheDir().getAbsolutePath();
+        fileName += "/create_audio.3gp";
+
+        File audioFile = new File(fileName);
+        byte[] encryptedAudio = crypt.encryptAudio(audioFile);
 
 
 
@@ -81,8 +88,9 @@ public class SecurityLayer {
                 encryptedTimestamp,
                 encryptedLocation,
                 encryptedLastUpdate,
+                mood,
                 encryptedBitmapArrayList,
-                null
+                encryptedAudio
         );
     }
 
@@ -128,6 +136,25 @@ public class SecurityLayer {
             throw new RuntimeException(e);
         }
     } // End decryptImages
+
+    public byte[] decryptAudio(DiaryEntry entry) {
+        try {
+            Long id = entry.entryID;
+            Future<byte[]> encryptedAudioFuture = dataLayer.readDiaryEntryAudio(id);
+            byte[] encryptedAudio = encryptedAudioFuture.get();
+
+            if(encryptedAudio == null) {
+                return null;
+            }
+
+            // Decrypt Audio
+            return crypt.decryptAudio(encryptedAudio);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     /**

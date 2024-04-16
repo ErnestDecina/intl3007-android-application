@@ -41,6 +41,7 @@ public class DiaryFeatures {
             String timestamp,
             String location,
             String last_update,
+            Integer mood,
             ArrayList<Uri> uriArrayList
     ) {
         executorService.submit(() -> {
@@ -64,6 +65,7 @@ public class DiaryFeatures {
                     timestamp,
                     location,
                     last_update,
+                    mood,
                     bitmapArrayList
             );
         });
@@ -79,6 +81,10 @@ public class DiaryFeatures {
 
     public ArrayList<Bitmap> getDiaryEntryImages(DiaryEntry entry) {
         return securityLayer.decryptImages(entry);
+    }
+
+    public byte[] getDiaryEntryAudio(DiaryEntry entry) {
+        return securityLayer.decryptAudio(entry);
     }
 
 }
