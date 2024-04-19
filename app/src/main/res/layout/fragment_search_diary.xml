@@ -15,53 +15,58 @@
 
         <TextView
             android:id="@+id/search_text"
-            android:layout_width="281dp"
-            android:layout_height="35dp"
+            android:layout_width="279dp"
+            android:layout_height="40dp"
             android:background="#00000000"
+            android:fontFamily="@font/francois_one"
             android:text="Re-visit your Entries ....."
-            android:textSize="24sp"
+            android:textColor="#0B0A0A"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.138"
+            app:layout_constraintHorizontal_bias="0.196"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.147" />
+            app:layout_constraintVertical_bias="0.141" />
 
         <SearchView
             android:id="@+id/searchView"
-            android:layout_width="236dp"
-            android:layout_height="49dp"
-            android:background="#FFFEFD"
+            android:layout_width="270dp"
+            android:layout_height="45dp"
+
+            android:background="@drawable/searchview_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.104"
+            app:layout_constraintHorizontal_bias="0.157"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.053" />
+            app:layout_constraintVertical_bias="0.052" />
 
         <Spinner
             android:id="@+id/dropdown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="81dp"
+            android:layout_height="36dp"
+            android:background="@android:color/transparent"
             android:entries="@array/dropdown_options"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.945"
+            app:layout_constraintHorizontal_bias="0.951"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.073" />
+            app:layout_constraintVertical_bias="0.051"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewDiaryEntries"
-            android:layout_width="361dp"
-            android:layout_height="555dp"
+            android:layout_width="348dp"
+            android:layout_height="580dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.36"
+            app:layout_constraintHorizontal_bias="0.412"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.829" />
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -76,9 +76,9 @@ public class SearchDiaryFragment extends Fragment {
                 // Handle the selected item here
                 String selectedItem = parentView.getItemAtPosition(position).toString();
                 // You can perform different actions based on the selected item
-                if (selectedItem.equals("Newest")) {
+                if (selectedItem.equals("Newest ⇅")) {
                     // Handle when "Newest" is selected
-                } else if (selectedItem.equals("Oldest")) {
+                } else if (selectedItem.equals("Oldest ⇅")) {
                     // Handle when "Oldest" is selected
                 }
             }
