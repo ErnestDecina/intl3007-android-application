@@ -20,6 +20,7 @@ import com.ernestjohndecina.intl3007_diary_application.database.entities.DiaryEn
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -106,6 +107,11 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Vi
     }
 
 
+    public void updateDiaryEntries(List diaryEntries) {
+        this.entries = diaryEntries;
+    }
+
+
 
     ViewEditDiaryActivity viewEditDiaryActivity = new ViewEditDiaryActivity();
 
@@ -122,4 +128,6 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Vi
 
         this.activity.startActivity(intent);
     }
+
+
 }

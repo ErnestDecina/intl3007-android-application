@@ -125,7 +125,7 @@ public class SearchDiaryFragment extends Fragment {
                 diaryEntries = systemFeatures.diaryFeatures.searchDiaryEntry(query);
                 adapter.updateDiaryEntries(diaryEntries);
                 adapter.notifyDataSetChanged();
-                Log.d("TEST", "" + diaryEntries.size());
+
                 return false;
             }
 
@@ -135,7 +135,7 @@ public class SearchDiaryFragment extends Fragment {
                 diaryEntries = systemFeatures.diaryFeatures.searchDiaryEntry(newText);
                 adapter.updateDiaryEntries(diaryEntries);
                 adapter.notifyDataSetChanged();
-                Log.d("TEST", "" + diaryEntries.size());
+
                 return false;
             }
         });

@@ -99,6 +99,12 @@ public class DiaryFeatures {
 
         if(searchQuery.matches("\\d{2}/\\d{2}/\\d{4}")) {
             return searchDiaryEntryByDate(searchQuery);
+        } else if (searchQuery.matches("Happy")) {
+            return searchDiaryEntryByMood(1);
+        } else if (searchQuery.matches("Ok")) {
+            return searchDiaryEntryByMood(0);
+        } else if (searchQuery.matches("Sad")) {
+            return searchDiaryEntryByMood(-1);
         }
 
 
@@ -141,6 +147,18 @@ public class DiaryFeatures {
 
         for (DiaryEntry diaryEntry: diaryEntries) {
             if(diaryEntry.title.contains(title)) {
+                results.add(diaryEntry);
+            }
+        }
+
+        return results;
+    }
+
+    private  ArrayList<DiaryEntry> searchDiaryEntryByMood(Integer mood) {
+        ArrayList<DiaryEntry> results = new ArrayList<>();
+
+        for (DiaryEntry diaryEntry: diaryEntries) {
+            if(diaryEntry.mood == mood) {
                 results.add(diaryEntry);
             }
         }
