@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,21 +14,21 @@
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:fontFamily="@font/francois_one"
         android:textColor="#000"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="11/02/24" />
 
-    <ImageView
+    <TextView
         android:id="@+id/ivIcon"
         android:layout_width="28dp"
         android:layout_height="30dp"
-        android:layout_marginTop="0.5dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="3dp"
         android:contentDescription="@string/cat_mood"
-        android:src="@drawable/cat_mood"
+        android:text="@string/mood_ok"
+        android:textSize="60px"
         app:layout_constraintBottom_toTopOf="@+id/tvLastUpdated"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,22 +38,30 @@
         android:id="@+id/tvTrip"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/francois_one"
+        android:maxLines="2"
         android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/tvLastUpdated"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDate"
-        app:layout_constraintEnd_toStartOf="@+id/ivIcon"
-        tools:text="Trip to Seoul" />
+        tools:text="Trip to Seoul that might be very long and needs to be truncated" />
 
     <TextView
         android:id="@+id/tvLastUpdated"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="end"
+        android:layout_width="114dp"
+        android:layout_height="24dp"
+        android:fontFamily="@font/francois_one"
+        android:padding="5dp"
         android:textColor="#000"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="last updated 11/02/25 11:33" />
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTrip"
+        app:layout_constraintEnd_toEndOf="@+id/ivIcon"
+        app:layout_constraintStart_toEndOf="@+id/tvTrip"
+        app:layout_constraintTop_toTopOf="@+id/tvTrip"
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="Last updated 11/02/25 11:33" />
 </androidx.constraintlayout.widget.ConstraintLayout>

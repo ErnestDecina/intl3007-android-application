@@ -13,10 +13,37 @@
 
         <!-- Your EditTexts and Button here -->
 
+        <TextView
+            android:id="@+id/pin_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/francois_one"
+            android:text="PIN"
+            app:layout_constraintBottom_toTopOf="@+id/pinLoginEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.151"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/username_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="13dp"
+            android:fontFamily="@font/francois_one"
+            android:text="Username"
+            app:layout_constraintBottom_toTopOf="@+id/usernameLoginEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.17"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/backgroundImageView"
+            app:layout_constraintVertical_bias="1.0" />
+
         <ImageView
             android:id="@+id/backgroundImageView"
-            android:layout_width="273dp"
-            android:layout_height="339dp"
+            android:layout_width="272dp"
+            android:layout_height="316dp"
             android:src="@drawable/logo_background"
             app:layout_constraintBottom_toTopOf="@+id/usernameLoginEditText"
             app:layout_constraintEnd_toEndOf="parent"
@@ -24,11 +51,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
+
         <ImageView
             android:id="@+id/login_logo"
             android:layout_width="146dp"
             android:layout_height="164dp"
-            android:layout_marginTop="132dp"
+            android:layout_marginTop="128dp"
             android:src="@drawable/logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -37,33 +65,38 @@
 
         <EditText
             android:id="@+id/usernameLoginEditText"
-            android:layout_width="295dp"
-            android:layout_height="76dp"
+            android:layout_width="276dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/edittext_opaque_background"
             android:ems="10"
-            android:hint="Username"
             android:inputType="text"
             app:layout_constraintBottom_toTopOf="@+id/pinLoginEditText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.437"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingLeft="10dp"/>
 
         <EditText
             android:id="@+id/pinLoginEditText"
-            android:layout_width="293dp"
-            android:layout_height="79dp"
-            android:layout_marginBottom="264dp"
+            android:layout_width="276dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="244dp"
+            android:background="@drawable/edittext_opaque_background"
             android:ems="10"
-            android:hint="Pin"
             android:inputType="numberPassword"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.491"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.437"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingLeft="10dp"/>
 
         <ImageButton
             android:id="@+id/loginButton"
             android:layout_width="237dp"
             android:layout_height="88dp"
             android:layout_marginTop="44dp"
+            android:backgroundTint="#00FFFFFF"
             android:clickable="true"
             android:contentDescription="@string/login_button"
             android:focusable="true"
@@ -72,18 +105,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pinLoginEditText"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.041" />
 
         <TextView
             android:id="@+id/textView9"
-            android:layout_width="180dp"
-            android:layout_height="69dp"
+            android:layout_width="187dp"
+            android:layout_height="85dp"
+            android:fontFamily="@font/francois_one"
             android:text="PURRSONAL PAGES"
             android:textAlignment="center"
-            android:textSize="30sp"
+            android:textColor="#0C0C0C"
+            android:textSize="80px"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/login_logo"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/backgroundImageView"
             app:layout_constraintVertical_bias="1.0" />

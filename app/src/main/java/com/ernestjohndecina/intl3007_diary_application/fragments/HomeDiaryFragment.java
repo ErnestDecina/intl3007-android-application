@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ernestjohndecina.intl3007_diary_application.R;
 import com.ernestjohndecina.intl3007_diary_application.database.entities.DiaryEntry;
@@ -17,6 +19,7 @@ import com.ernestjohndecina.intl3007_diary_application.database.entities.User;
 import com.ernestjohndecina.intl3007_diary_application.layers.system_features.SystemFeatures;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HomeDiaryFragment extends Fragment {
 
@@ -37,6 +40,7 @@ public class HomeDiaryFragment extends Fragment {
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             view = inflater.inflate(R.layout.fragment_home_diary, container, false);
             setEntryRecyclerView(view);
+
 
 
             // Set up greeting text with the username
@@ -69,11 +73,18 @@ public class HomeDiaryFragment extends Fragment {
 
     public void setEntryRecyclerView(View view) {
             this.entryRecyclerView = view.findViewById(R.id.entryRecyclerView);
-            this.entryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            linearLayoutManager.setReverseLayout(true);
+            linearLayoutManager.setStackFromEnd(true);
+
+            this.entryRecyclerView.setLayoutManager(linearLayoutManager);
+
             // Get Diary Entries
             diaryEntryArrayList = (ArrayList<DiaryEntry>) systemFeatures.diaryFeatures.getAllDiaryEntries();
-
-            DiaryEntryAdapter adapter = new DiaryEntryAdapter(diaryEntryArrayList); // Populate with dummy entries
+            DiaryEntryAdapter adapter = new DiaryEntryAdapter(getActivity(), diaryEntryArrayList); // Populate with dummy entries
             this.entryRecyclerView.setAdapter(adapter);
+
+
     }
 }
