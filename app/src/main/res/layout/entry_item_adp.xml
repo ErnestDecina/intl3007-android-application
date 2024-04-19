@@ -14,8 +14,9 @@
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:fontFamily="@font/francois_one"
         android:textColor="#000"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="11/02/24" />
@@ -39,6 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:ellipsize="end"
+        android:fontFamily="@font/francois_one"
         android:maxLines="2"
         android:textColor="#1E1E1E"
         android:textSize="20sp"
@@ -50,8 +52,9 @@
 
     <TextView
         android:id="@+id/tvLastUpdated"
-        android:layout_width="115dp"
-        android:layout_height="21dp"
+        android:layout_width="114dp"
+        android:layout_height="24dp"
+        android:fontFamily="@font/francois_one"
         android:padding="5dp"
         android:textColor="#000"
         android:textSize="10sp"

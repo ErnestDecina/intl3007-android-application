@@ -22,6 +22,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -186,11 +189,18 @@ public class CreateEntryActivity extends AppCompatActivity {
     private void setupMoodDropdown() {
         Spinner dropdown = findViewById(R.id.moodSpinner);
 
-        ArrayAdapter<CharSequence> dropdownAdapter = ArrayAdapter.createFromResource(this,
-                R.array.mood_options, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> dropdownAdapter = new ArrayAdapter<CharSequence>(this,
+                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.mood_options)) {
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.dropdown_anim);
+                view.startAnimation(anim);
+                return view;
+            }
+        };
+
         dropdownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-
         dropdown.setAdapter(dropdownAdapter);
 
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -198,18 +208,12 @@ public class CreateEntryActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // Handle the selected item here
                 String selectedItem = parentView.getItemAtPosition(position).toString();
-                // You can perform different actions based on the selected item
                 if (selectedItem.equals("\uD83D\uDE0A")) {
-                    // Handle when "Newest" is selected
-                    mood = 1;
+                    mood = 1;  // Smiley face selected
                 } else if (selectedItem.equals("\uD83D\uDE10")) {
-                    // Handle when "Oldest" is selected
-                    mood = 0;
-
+                    mood = 0;  // Neutral face selected
                 } else if (selectedItem.equals("\uD83D\uDE14")) {
-                    // Handle when "Oldest" is selected
-                    mood = -1;
-
+                    mood = -1; // Sad face selected
                 }
             }
 
@@ -227,16 +231,16 @@ public class CreateEntryActivity extends AppCompatActivity {
         i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
 
         launcher = registerForActivityResult(
-                        new ActivityResultContracts.StartActivityForResult(),
-                        (ActivityResult result) -> {
-                            if(result.getResultCode() == RESULT_OK) {
-                                ArrayList<Uri> imagesArrayList = getURIFromData(result.getData());
-                                uriArrayList.addAll(imagesArrayList);
-                            } else if(result.getResultCode()==ImagePicker.RESULT_ERROR){
-                                // Use ImagePicker.Companion.getError(result.getData()) to show an error
-                            }
-                        }
-                );
+                new ActivityResultContracts.StartActivityForResult(),
+                (ActivityResult result) -> {
+                    if(result.getResultCode() == RESULT_OK) {
+                        ArrayList<Uri> imagesArrayList = getURIFromData(result.getData());
+                        uriArrayList.addAll(imagesArrayList);
+                    } else if(result.getResultCode()==ImagePicker.RESULT_ERROR){
+                        // Use ImagePicker.Companion.getError(result.getData()) to show an error
+                    }
+                }
+        );
     }
 
     private ArrayList<Uri> getURIFromData(Intent data) {
@@ -347,7 +351,7 @@ public class CreateEntryActivity extends AppCompatActivity {
     }
 
     private void stopGetAudio() {
-        buttonGetAudio.setImageResource(R.drawable.cat_mood);
+        buttonGetAudio.setImageResource(R.drawable.audio_done);
         try {
             mediaRecorder.stop();
         } catch (Exception ignored) {
