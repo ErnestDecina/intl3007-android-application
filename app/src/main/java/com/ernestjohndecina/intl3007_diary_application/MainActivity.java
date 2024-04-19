@@ -8,8 +8,9 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageButton;
 
-import com.ernestjohndecina.intl3007_diary_application.activities.CreateDiaryActivity;
+import com.ernestjohndecina.intl3007_diary_application.activities.CreateEntryActivity;
 import com.ernestjohndecina.intl3007_diary_application.activities.LoginActivity;
 import com.ernestjohndecina.intl3007_diary_application.activities.RegisterActivity;
 import com.ernestjohndecina.intl3007_diary_application.database.entities.User;
@@ -43,15 +44,15 @@ public class MainActivity extends AppCompatActivity {
     Intent addDiaryEntryActivity;
 
 
-    // Fragments
-    HomeDiaryFragment homeDiaryFragment;
-    SearchDiaryFragment searchDiaryFragment;
-
-
     // Navigation Buttons
-    Button homeButton;
-    Button addDiaryButton;
-    Button searchDiaryButton;
+    ImageButton homeButton;
+    ImageButton addDiaryButton;
+    ImageButton searchDiaryButton;
+
+
+    // Fragments
+    SearchDiaryFragment searchDiaryFragment;
+    HomeDiaryFragment homeDiaryFragment;
 
 
     @Override
@@ -64,12 +65,21 @@ public class MainActivity extends AppCompatActivity {
         test();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        showLoginActivity();
+        showRegisterActivity();
+        changeFragmentHome();
+    }
+
 
     private void createDependencies() {
         createThreadExecutor();
         createSystemFeatures();
-        setupFragments();
         setupActivities();
+        setupFragments();
         setupButtons();
     }
 
@@ -96,16 +106,15 @@ public class MainActivity extends AppCompatActivity {
     private void setupActivities() {
         registerActivity = new Intent(this, RegisterActivity.class);
         loginActivity = new Intent(this, LoginActivity.class);
-        addDiaryEntryActivity = new Intent(this, CreateDiaryActivity.class);
+        addDiaryEntryActivity = new Intent(this, CreateEntryActivity.class);
     }
 
-
     private void setupFragments() {
-        homeDiaryFragment = HomeDiaryFragment.newInstance();
-        homeDiaryFragment.setSystemFeatures(systemFeatures);
-
-        searchDiaryFragment = SearchDiaryFragment.newInstance();
+        searchDiaryFragment = new SearchDiaryFragment();
         searchDiaryFragment.setSystemFeatures(systemFeatures);
+
+        homeDiaryFragment = new HomeDiaryFragment();
+        homeDiaryFragment.setSystemFeatures(systemFeatures);
     }
 
 
@@ -125,23 +134,24 @@ public class MainActivity extends AppCompatActivity {
 
 
     private Boolean checkUserRegistered() {
-        return REGISTER_STATE;
+        return systemFeatures.userFeatures.checkUserExists();
     }
 
 
     private Boolean checkUserLoggedIn() {
-        return LOGIN_STATE;
+        return systemFeatures.userFeatures.checkUserLoggedIn();
     }
 
 
     private void showRegisterActivity() {
-        if(!checkUserRegistered()) return;
+        if(checkUserRegistered()) return;
         startActivity(registerActivity);
     }
 
 
     private void showLoginActivity() {
-        if(!checkUserLoggedIn()) return;
+        if(!checkUserRegistered()) return;
+        if(checkUserLoggedIn()) return;
         startActivity(loginActivity);
     }
 
