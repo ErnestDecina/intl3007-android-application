@@ -49,7 +49,7 @@
             android:fontFamily="@font/francois_one"
             android:text="Welcome Back User"
             android:textColor="@color/black"
-            android:textSize="25sp"
+            android:textSize="70px"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -71,12 +71,14 @@
         <ImageView
             android:layout_width="66dp"
             android:layout_height="89dp"
-            android:layout_marginBottom="72dp"
+            android:layout_marginBottom="44dp"
             android:background="@drawable/logo"
             app:layout_constraintBottom_toTopOf="@+id/entryRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.896"
-            app:layout_constraintStart_toEndOf="@+id/greetingTextView" />
+            app:layout_constraintHorizontal_bias="0.798"
+            app:layout_constraintStart_toEndOf="@+id/greetingTextView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

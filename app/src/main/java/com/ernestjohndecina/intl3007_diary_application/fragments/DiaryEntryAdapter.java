@@ -1,5 +1,6 @@
 package com.ernestjohndecina.intl3007_diary_application.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +18,9 @@ import com.ernestjohndecina.intl3007_diary_application.R;
 import com.ernestjohndecina.intl3007_diary_application.activities.ViewEditDiaryActivity;
 import com.ernestjohndecina.intl3007_diary_application.database.entities.DiaryEntry;
 
-import java.util.Arrays;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.ViewHolder> {
@@ -46,21 +49,27 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Vi
         return holder;
     }
 
-    public void updateDiaryEntries(List<DiaryEntry> newDiaryEntries) {
-        entries = newDiaryEntries;
-    }
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat displayDateFormat = new SimpleDateFormat("EEEE dd/MM/yyyy HH:mm");
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat inputDateFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DiaryEntry entry = entries.get(position);
         holder.titleTextView.setText(entry.title);
-        holder.date.setText(entry.timestamp);
 
-        String[] dates = entry.LastUpdate.split(" ");
+        try {
+            Date date = inputDateFormat.parse(entry.timestamp);
+            String dateString = displayDateFormat.format(date);
+            holder.date.setText(dateString);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
 
-        Log.d("TEST", Arrays.toString(dates));
 
-        holder.lastUpdatedTextView.setText("last updated " + dates[1]);
+
+        holder.lastUpdatedTextView.setText("last updated on " + entry.LastUpdate);
         holder.id = entry.entryID - 1;
 
         if(entry.mood == 1) {
