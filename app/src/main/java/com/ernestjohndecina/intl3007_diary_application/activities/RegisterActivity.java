@@ -51,15 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void setupLoginTextView() {
-        TextView textView = findViewById(R.id.textView8);
-        textView.setText(Html.fromHtml("<u>Login here</u>"));
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
     private void createDependencies() {
