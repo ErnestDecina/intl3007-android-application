@@ -89,8 +89,8 @@ public class CreateEntryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_diary);
-
         createDependencies();
+        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
     }
 
     @Override
@@ -103,7 +103,6 @@ public class CreateEntryActivity extends AppCompatActivity {
         createThreadExecutor();
         createSystemFeatures();
         setupGetImages();
-        setupMediaRecorderPlayer();
         setupButtons();
         setupEditText();
         setupTextViews();
@@ -302,6 +301,8 @@ public class CreateEntryActivity extends AppCompatActivity {
                 mood,
                 uriArrayList
         );
+
+        finish();
     }
 
 
@@ -326,20 +327,20 @@ public class CreateEntryActivity extends AppCompatActivity {
                 break;
         }
         if (!permissionToRecordAccepted ) finish();
-
     }
+
+
 
     private void setupMediaRecorderPlayer() {
         fileName = getExternalCacheDir().getAbsolutePath();
         fileName += "/create_audio.3gp";
 
-        this.mediaRecorder = new MediaRecorder();
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mediaRecorder.setOutputFile(fileName);
-        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-
         try {
+            this.mediaRecorder = new MediaRecorder();
+            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+            mediaRecorder.setOutputFile(fileName);
+            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
             mediaRecorder.prepare();
         } catch (IOException e) {
             Log.e("TEST", "prepare() failed");
@@ -351,13 +352,11 @@ public class CreateEntryActivity extends AppCompatActivity {
     }
 
     private void stopGetAudio() {
-        buttonGetAudio.setImageResource(R.drawable.audio_done);
         try {
             mediaRecorder.stop();
         } catch (Exception ignored) {
 
         }
-
 
 
         try {
@@ -370,9 +369,7 @@ public class CreateEntryActivity extends AppCompatActivity {
     }
 
     private void startGetAudio() {
-        buttonGetAudio.setImageResource(R.drawable.loading);
         setupMediaRecorderPlayer();
-        ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
 
         try {
             mediaRecorder.start();
