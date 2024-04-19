@@ -14,8 +14,35 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/background"
-        tools:layout_editor_absoluteX="-46dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteX="19dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/email_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/francois_one"
+        android:text="Your Email"
+        android:textColor="#0B0B0B"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/firstNameEditText" />
+
+    <TextView
+        android:id="@+id/username_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/francois_one"
+        android:text="Create a username"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -47,6 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="104dp"
         android:text="Register an account with us..."
+        android:textColor="#020202"
         android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,37 +84,42 @@
 
     <EditText
         android:id="@+id/firstNameEditText"
-        android:layout_width="361dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="362dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edittext_opaque_background"
         android:ems="10"
-        android:hint="Your name..."
         android:inputType="text"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/emailEditText"
-        android:layout_width="361dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="362dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edittext_opaque_background"
         android:ems="10"
-        android:hint="Your email..."
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
+        android:padding="10dp"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/firstNameEditText" />
 
     <EditText
         android:id="@+id/usernameEditText"
-        android:layout_width="361dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="364dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/edittext_opaque_background"
         android:ems="10"
-        android:hint="Create an username..."
         android:inputType="text"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
 
@@ -94,22 +127,25 @@
         android:id="@+id/pinEditNumber"
         android:layout_width="361dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/edittext_opaque_background"
         android:ems="10"
-        android:hint="Create a pin..."
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
+        android:padding="10dp"
         app:layout_constraintTop_toBottomOf="@+id/usernameEditText" />
 
     <ImageButton
         android:id="@+id/registerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="247dp"
+        android:layout_height="72dp"
         android:layout_marginTop="20dp"
         android:backgroundTint="#00FFFFFF"
         android:src="@drawable/reg_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pinEditNumber" />
 
@@ -118,8 +154,9 @@
         android:layout_width="154dp"
         android:layout_height="23dp"
         android:layout_marginStart="84dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="12dp"
         android:text="Have a already a Diary?"
+        android:textColor="#0C0C0C"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerButton" />
@@ -128,26 +165,55 @@
         android:id="@+id/textView8"
         android:layout_width="68dp"
         android:layout_height="24dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="104dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="92dp"
         android:linksClickable="false"
         android:text="Login here"
+        android:textColor="#070707"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerButton" />
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="289dp"
-        android:layout_height="71dp"
+        android:layout_width="230dp"
+        android:layout_height="79dp"
+        android:fontFamily="@font/francois_one"
         android:text="Welcome to  PUURSONAL PAGES"
         android:textAlignment="center"
-        android:textSize="70px"
+        android:textColor="#040404"
+        android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/register_logo"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.15" />
+
+    <TextView
+        android:id="@+id/name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/francois_one"
+        android:text="Your Name"
+        android:textColor="#0E0D0D"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/pin_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/francois_one"
+        android:text="Create a pin"
+        android:textColor="#0E0E0E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameEditText" />
 </androidx.constraintlayout.widget.ConstraintLayout>
