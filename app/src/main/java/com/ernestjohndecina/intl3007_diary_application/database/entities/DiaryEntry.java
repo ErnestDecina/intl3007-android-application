@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
@@ -14,6 +15,9 @@ public class DiaryEntry {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "entry_ID")
     public Long entryID;
+
+    @ColumnInfo(name = "user_id")
+    public Integer userID;
 
     @ColumnInfo(name = "title")
     public String title;

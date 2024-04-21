@@ -14,5 +14,8 @@ public interface UserDAO {
     void insertUser(User user);
 
     @Query("SELECT * FROM user")
-    List<User> selectUser();
+    List<User> selectUsers();
+
+    @Query("SELECT * FROM user WHERE uid = :userId")
+    List<User> selectUser(Integer userId);
 }

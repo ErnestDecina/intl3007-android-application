@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 
@@ -42,6 +43,7 @@ public class DiaryFeatures {
     }
 
     public void createDiaryEntry(
+            Integer userId,
             String title,
             String content,
             String timestamp,
@@ -66,6 +68,7 @@ public class DiaryFeatures {
 
             // Encrypt
             securityLayer.encryptDiaryEntry(
+                    userId,
                     title,
                     content,
                     timestamp,
@@ -84,6 +87,22 @@ public class DiaryFeatures {
         } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public DiaryEntry getDiaryEntry(Long entryId) {
+        try {
+            diaryEntries = securityLayer.decryptAllDiaryEntry();
+
+            for(DiaryEntry diaryEntry: diaryEntries) {
+                if(Objects.equals(diaryEntry.entryID, entryId)) {
+                    return diaryEntry;
+                }
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        return null;
     }
 
     public ArrayList<Bitmap> getDiaryEntryImages(DiaryEntry entry) {

@@ -4,10 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.Html;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ernestjohndecina.intl3007_diary_application.R;
 import com.ernestjohndecina.intl3007_diary_application.layers.system_features.SystemFeatures;
@@ -18,8 +16,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import android.widget.ImageButton;
 import android.content.Intent;
-import android.view.View;
-import android.widget.TextView;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -51,7 +47,11 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void setupLoginTextView() {
-
+        TextView textView = findViewById(R.id.loginHereTextView);
+        textView.setText(Html.fromHtml("<u>Login here</u>"));
+        textView.setOnClickListener(v -> {
+            finish();
+        });
     }
 
     private void createDependencies() {

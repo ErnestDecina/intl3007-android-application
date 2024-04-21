@@ -16,6 +16,7 @@ import com.ernestjohndecina.intl3007_diary_application.activities.RegisterActivi
 import com.ernestjohndecina.intl3007_diary_application.database.entities.User;
 import com.ernestjohndecina.intl3007_diary_application.fragments.HomeDiaryFragment;
 import com.ernestjohndecina.intl3007_diary_application.fragments.SearchDiaryFragment;
+import com.ernestjohndecina.intl3007_diary_application.layers.security_layer.SecurityLayer;
 import com.ernestjohndecina.intl3007_diary_application.layers.system_features.SystemFeatures;
 import com.ernestjohndecina.intl3007_diary_application.utilites.security.Crypt;
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     // Development Variables
     Boolean REGISTER_STATE = true;
     Boolean LOGIN_STATE = true;
+
 
 
 
@@ -71,7 +73,15 @@ public class MainActivity extends AppCompatActivity {
 
         showLoginActivity();
         showRegisterActivity();
+        setupFragments();
         changeFragmentHome();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Log user out
+        systemFeatures.userFeatures.logoutUser();
+        onResume();
     }
 
 
@@ -79,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         createThreadExecutor();
         createSystemFeatures();
         setupActivities();
-        setupFragments();
         setupButtons();
     }
 

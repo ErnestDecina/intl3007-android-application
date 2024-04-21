@@ -1,10 +1,12 @@
 package com.ernestjohndecina.intl3007_diary_application.layers.system_features.features;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.ernestjohndecina.intl3007_diary_application.database.entities.User;
 import com.ernestjohndecina.intl3007_diary_application.layers.security_layer.SecurityLayer;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -59,22 +61,42 @@ public class UserFeatures {
     ) {
         try {
             securityLayer.setLoginStateFalse();
-            User correctUserDetails = securityLayer.decryptUserDetails();
 
-            if(!Objects.equals(correctUserDetails.username, username)) return Boolean.FALSE;
-            if(!Objects.equals(correctUserDetails.pin, pin)) return Boolean.FALSE;
+            // Find User
+            ArrayList<User> allUsers = securityLayer.decryptUserAllLoginDetails();
 
-            securityLayer.setLoginStateTrue();
-            return Boolean.TRUE;
+            for ( User user: allUsers) {
+                if(Objects.equals(user.username, username) && Objects.equals(user.pin, pin)) {
+                    Log.d("TEST", "" + user.userID);
+                    securityLayer.setUserId(user.userID);
+                    securityLayer.setLoginStateTrue();
+
+
+                    return Boolean.TRUE;
+                }
+            }
+            return Boolean.FALSE;
         } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Boolean checkUserExists() {
-        User currentUser = getUserAccountDetails();
+    public void logoutUser() {
+        securityLayer.setLoginStateFalse();
+        SecurityLayer.userId = -1;
+    }
 
-        return currentUser != null;
+    public Boolean checkUserExists() {
+        ArrayList<User> currentUser = null;
+        try {
+            currentUser = securityLayer.decryptUserAllLoginDetails();
+
+            return currentUser.size() != 0;
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     public Boolean checkUserLoggedIn() {

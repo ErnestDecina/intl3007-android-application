@@ -71,7 +71,7 @@ public class DiaryEntryAdapter extends RecyclerView.Adapter<DiaryEntryAdapter.Vi
 
 
         holder.lastUpdatedTextView.setText("last updated on " + entry.LastUpdate);
-        holder.id = entry.entryID - 1;
+        holder.id = entry.entryID;
 
         if(entry.mood == 1) {
             holder.moodTextView.setText(R.string.mood_happy);

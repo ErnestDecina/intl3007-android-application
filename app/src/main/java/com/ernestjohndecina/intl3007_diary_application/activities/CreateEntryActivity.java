@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ernestjohndecina.intl3007_diary_application.R;
+import com.ernestjohndecina.intl3007_diary_application.layers.security_layer.SecurityLayer;
 import com.ernestjohndecina.intl3007_diary_application.layers.system_features.SystemFeatures;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
@@ -293,6 +294,7 @@ public class CreateEntryActivity extends AppCompatActivity {
         String dateString = outputDateFormat.format(date);
         Toast.makeText(this, dateString, Toast.LENGTH_SHORT).show();
         systemFeatures.diaryFeatures.createDiaryEntry(
+                SecurityLayer.userId,
                 title,
                 content,
                 dateString,

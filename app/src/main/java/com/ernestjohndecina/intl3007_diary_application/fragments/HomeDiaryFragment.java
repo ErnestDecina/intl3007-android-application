@@ -16,9 +16,11 @@ import android.widget.Toast;
 import com.ernestjohndecina.intl3007_diary_application.R;
 import com.ernestjohndecina.intl3007_diary_application.database.entities.DiaryEntry;
 import com.ernestjohndecina.intl3007_diary_application.database.entities.User;
+import com.ernestjohndecina.intl3007_diary_application.layers.security_layer.SecurityLayer;
 import com.ernestjohndecina.intl3007_diary_application.layers.system_features.SystemFeatures;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 
 public class HomeDiaryFragment extends Fragment {
@@ -48,12 +50,24 @@ public class HomeDiaryFragment extends Fragment {
 
             // Check if systemFeatures is not null and userFeatures is available
             if (systemFeatures != null && systemFeatures.userFeatures != null) {
-                // Get the user information
-                User userInfo = systemFeatures.userFeatures.getUserAccountDetails();
-                String firstName = userInfo.firstName;
+                try {
+                    User userInfo = systemFeatures.userFeatures.getUserAccountDetails();
+                    String firstName = userInfo.firstName;
 
-                // Display the greeting with the user's first name
-                greetingTextView.setText("Good Morning, " + firstName);
+                    Integer hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+                    if(hour >= 16) {
+                        greetingTextView.setText("Good Evening, " + firstName);
+                    }
+                    else if(hour >= 12) {
+                        greetingTextView.setText("Good Afternoon, " + firstName);
+                    }
+                    else {
+                        greetingTextView.setText("Good Morning, " + firstName);
+                    }
+                    // Display the greeting with the user's first name
+                } catch (Exception ignored) {
+
+                }
             } else {
                 // Fallback to a default greeting if user information is not available
                 greetingTextView.setText("Good Morning, User");

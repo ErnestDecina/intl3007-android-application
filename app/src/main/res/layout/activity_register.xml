@@ -150,7 +150,34 @@
         app:layout_constraintTop_toBottomOf="@+id/pinEditNumber" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/textView7"
+        android:layout_width="154dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="12dp"
+        android:text="Have a already a Diary?"
+        android:textColor="#0C0C0C"
+        android:textSize="38px"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerButton" />
+
+    <TextView
+        android:id="@+id/loginHereTextView"
+        android:layout_width="68dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="84dp"
+        android:linksClickable="false"
+        android:text="Login here"
+        android:textColor="#070707"
+        android:textSize="37px"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerButton" />
+
+    <TextView
+        android:id="@+id/textView20"
         android:layout_width="230dp"
         android:layout_height="79dp"
         android:fontFamily="@font/francois_one"

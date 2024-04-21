@@ -13,8 +13,8 @@ public interface DiaryEntryDAO {
     @Insert
     Long insertDiaryEntry(DiaryEntry diaryentry);
 
-    @Query("SELECT * FROM DiaryEntry")
-    List<DiaryEntry> selectAllDiaryEntry();
+    @Query("SELECT * FROM DiaryEntry WHERE user_id = :userId")
+    List<DiaryEntry> selectAllDiaryEntry(Integer userId);
 
 
 }

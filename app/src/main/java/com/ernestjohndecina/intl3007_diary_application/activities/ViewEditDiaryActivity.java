@@ -2,13 +2,16 @@ package com.ernestjohndecina.intl3007_diary_application.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -92,6 +95,7 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
         getEntryID();
         loadDiaryEntry();
         setupTextViews();
+        setupExitButton();
         setupRecyclerView();
     }
 
@@ -117,7 +121,7 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
         monthYearTimeTextView = findViewById(R.id.monthYearTimeTextView2);
         diaryEntryTitleTextView = findViewById(R.id.titleTextView);
         diaryEntryContentTextView = findViewById(R.id.contentEntryTextView);
-        moodTextVIew = findViewById(R.id.moodTextView);
+        moodTextVIew = findViewById(R.id.emojiDisplayTextView);
 
 
         // Get day and date
@@ -146,10 +150,20 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
         }
     }
 
+    private void setupExitButton() {
+        ImageButton exitImageButton = findViewById(R.id.cancelImageButton2);
+        exitImageButton.setOnClickListener(v -> finish());
+    }
+
     private void setupRecyclerView() {
         imageRecyclerView = findViewById(R.id.imageRecyclerView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        imageRecyclerView.setLayoutManager(linearLayoutManager);
 
-        imageRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        SnapHelper helper = new LinearSnapHelper();
+        helper.attachToRecyclerView(imageRecyclerView);
         ImageViewEditDiaryEntryAdapter imageViewEditDiaryEntryAdapter = new ImageViewEditDiaryEntryAdapter(this, imageArrayList);
         imageRecyclerView.setAdapter(imageViewEditDiaryEntryAdapter);
     }
@@ -160,7 +174,7 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
     }
 
     private void loadDiaryEntry() {
-        diaryEntry = systemFeatures.diaryFeatures.getAllDiaryEntries().get((int) entryID);
+        diaryEntry = systemFeatures.diaryFeatures.getDiaryEntry(entryID);
 
         // Load Images
         loadImages();

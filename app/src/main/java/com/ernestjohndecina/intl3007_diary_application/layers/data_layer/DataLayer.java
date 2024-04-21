@@ -9,6 +9,7 @@ import androidx.room.Room;
 import com.ernestjohndecina.intl3007_diary_application.database.DiaryDatabase;
 import com.ernestjohndecina.intl3007_diary_application.database.entities.DiaryEntry;
 import com.ernestjohndecina.intl3007_diary_application.database.entities.User;
+import com.ernestjohndecina.intl3007_diary_application.layers.security_layer.SecurityLayer;
 
 
 import java.io.File;
@@ -65,6 +66,7 @@ public class DataLayer {
      *  Write Diary Entry
      */
     public void writeDiaryEntry(
+            Integer userId,
             String title,
             String content,
             String timestamp,
@@ -76,6 +78,7 @@ public class DataLayer {
     ) {
         // Creating Diary Entry
         DiaryEntry newDiaryEntry = new DiaryEntry();
+        newDiaryEntry.userID = userId;
         newDiaryEntry.title = title;
         newDiaryEntry.content = content;
         newDiaryEntry.timestamp = timestamp;
@@ -140,7 +143,7 @@ public class DataLayer {
      */
     public Future<List<DiaryEntry>> readAllDiaryEntry() {
         return executorService.submit(() -> {
-            List<DiaryEntry> diaryEntries = diaryDatabase.diaryEntryDao().selectAllDiaryEntry();
+            List<DiaryEntry> diaryEntries = diaryDatabase.diaryEntryDao().selectAllDiaryEntry(SecurityLayer.userId);
             return diaryEntries;
         });
     }
@@ -205,12 +208,18 @@ public class DataLayer {
      *
      * @return
      */
-    public Future<User> readUserDetails() {
+    public Future<User> readUserDetails(Integer userId) {
         return executorService.submit(() -> {
-            List<User> users = diaryDatabase.userDAO().selectUser();
+            List<User> users = diaryDatabase.userDAO().selectUser(userId);
             if(users.size() == 0) return null;
 
             return users.get(users.size() - 1);
+        });
+    }
+
+    public Future<List<User>> readAllUserDetails() {
+        return executorService.submit(() -> {
+            return diaryDatabase.userDAO().selectUsers();
         });
     }
 

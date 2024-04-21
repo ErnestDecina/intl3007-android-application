@@ -2,10 +2,13 @@ package com.ernestjohndecina.intl3007_diary_application.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ernestjohndecina.intl3007_diary_application.R;
@@ -38,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         createDependencies();
         setEditTexts();
         setButton();
+        setCreateAccount();
     }
 
 
@@ -71,6 +75,15 @@ public class LoginActivity extends AppCompatActivity {
     private void setButton() {
         this.loginButton = findViewById(R.id.loginButton);
         this.loginButton.setOnClickListener(v -> onClickLoginButton());
+    }
+
+    private void setCreateAccount() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        TextView textView = findViewById(R.id.createAccountTextView);
+        textView.setText(Html.fromHtml("<u>Create Account</u>"));
+        textView.setOnClickListener(v -> {
+            startActivity(intent);
+        });
     }
 
     private void onClickLoginButton() {

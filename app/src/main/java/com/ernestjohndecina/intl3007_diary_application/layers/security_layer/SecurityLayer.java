@@ -28,6 +28,7 @@ public class SecurityLayer {
     DataLayer dataLayer;
 
     static Boolean loginState = false;
+    public static Integer userId = 0;
 
 
     /**
@@ -49,6 +50,7 @@ public class SecurityLayer {
 
 
     public void encryptDiaryEntry(
+            Integer userId,
             String title,
             String content,
             String timestamp,
@@ -83,6 +85,7 @@ public class SecurityLayer {
 
         // Write Diary Entry
         dataLayer.writeDiaryEntry(
+                userId,
                 encryptedTitle,
                 encryptedContent,
                 encryptedTimestamp,
@@ -187,7 +190,7 @@ public class SecurityLayer {
      * @return
      */
     public User decryptUserDetails() throws ExecutionException, InterruptedException {
-        Future<User> user = dataLayer.readUserDetails();
+        Future<User> user = dataLayer.readUserDetails(SecurityLayer.userId);
         User encryptedUser = user.get();
 
         if (encryptedUser == null) return null;
@@ -201,6 +204,28 @@ public class SecurityLayer {
         return decryptedUser;
     }
 
+    public ArrayList<User> decryptUserAllLoginDetails() throws ExecutionException, InterruptedException {
+        Future<List<User>> user = dataLayer.readAllUserDetails();
+        List<User> encryptedUsers = user.get();
+        ArrayList<User> decryptedUsers = new ArrayList<>();
+
+        if (encryptedUsers == null) return null;
+
+        for(User encryptedUser: encryptedUsers) {
+            User decryptedUser = new User();
+            decryptedUser.userID = encryptedUser.userID;
+            decryptedUser.username = crypt.decryptString(encryptedUser.username);
+            decryptedUser.pin = crypt.decryptString(encryptedUser.pin);
+
+            decryptedUsers.add(decryptedUser);
+        }
+
+
+
+        return decryptedUsers;
+    }
+
+
     public void setLoginStateTrue() {
         loginState = true;
     }
@@ -212,6 +237,12 @@ public class SecurityLayer {
     public Boolean getLoginState() {
         return loginState;
     }
+
+    public void setUserId(Integer userId) {
+        SecurityLayer.userId = userId;
+    }
+    public Integer getUserId() { return userId; }
+
 
 
 
