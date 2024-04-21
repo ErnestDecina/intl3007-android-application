@@ -37,7 +37,7 @@ public class DataLayer {
 
     String root;
 
-    static Long id = 0L;
+    static Long id = -1L;
 
 
     /*
@@ -134,6 +134,8 @@ public class DataLayer {
                 Log.d("TEST", e.toString());
                 throw new RuntimeException(e);
             }
+
+
         });
     } // End writeDiaryEntry()
 
@@ -155,8 +157,10 @@ public class DataLayer {
             try {
                 String rootImages = root + "/entries/" + id + "/audio";
                 File audio = new File(rootImages + "/audio.bin");
+                Log.d("TEST", "File " + audio.toPath() + " Exists: " + audio.exists());
                 return Files.readAllBytes(audio.toPath());
             } catch (Exception ignored) {
+                Log.d("TEST", "Audio doesnt exist");
                 return null;
             }
         });

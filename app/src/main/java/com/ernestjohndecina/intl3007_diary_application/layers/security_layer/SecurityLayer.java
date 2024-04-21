@@ -81,6 +81,8 @@ public class SecurityLayer {
         File audioFile = new File(fileName);
         byte[] encryptedAudio = crypt.encryptAudio(audioFile);
 
+        // Delete Cache
+        audioFile.delete();
 
 
         // Write Diary Entry

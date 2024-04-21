@@ -21,6 +21,7 @@ import com.ernestjohndecina.intl3007_diary_application.fragments.DiaryEntryAdapt
 import com.ernestjohndecina.intl3007_diary_application.fragments.ImageViewEditDiaryEntryAdapter;
 import com.ernestjohndecina.intl3007_diary_application.layers.system_features.SystemFeatures;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -84,8 +85,15 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
     @Override
     protected  void onStop() {
         super.onStop();
+        deleteCache();
+    }
 
-        // Delete cache values
+    private void deleteCache(){
+        fileName = getExternalCacheDir().getAbsolutePath();
+        fileName += "/view_audio.3gp";
+
+        File audioFile = new File(fileName);
+        audioFile.delete();
     }
 
     private void createDependencies() {
