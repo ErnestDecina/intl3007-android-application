@@ -81,7 +81,6 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this,  "Incorrect Username or Password", Toast.LENGTH_LONG).show();
             return;
         }
-
         finish();
     }
 }

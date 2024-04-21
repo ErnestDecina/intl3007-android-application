@@ -3,6 +3,9 @@ from appium import webdriver
 from appium.options.android import UiAutomator2Options
 from appium.webdriver.common.appiumby import AppiumBy
 import time
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from appium.options.android import UiAutomator2Options
 
 class TestRegistration(unittest.TestCase):
     @classmethod
@@ -20,13 +23,15 @@ class TestRegistration(unittest.TestCase):
         appium_server_url = 'http://localhost:4723'
         cls.driver = webdriver.Remote(appium_server_url, options=UiAutomator2Options().load_capabilities(capabilities))
         cls.tearDownAtEnd = True
-
+    
     @classmethod
     def tearDown(cls) -> None:
         time.sleep(10)
         if cls.tearDownAtEnd:
             if cls.driver:
                 cls.driver.quit()
+            else:
+                print("Keeping the emulator open for further inspection.")
 
     def test_user_registration(self) -> None:
         firstname_field = self.driver.find_element(by=AppiumBy.ID, value='com.ernestjohndecina.intl3007_diary_application:id/firstNameEditText')
@@ -37,18 +42,21 @@ class TestRegistration(unittest.TestCase):
         time.sleep(2)
 
         # set test data
-        firstname_field.send_keys('testFirstName')
-        email_field.send_keys('test@example.com')
-        username_field.send_keys('testUsername')
+        firstname_field.send_keys('John')
+        email_field.send_keys('john@example.com')
+        username_field.send_keys('john123')
         password_field.send_keys('1234')
-
+        time.sleep(2)
         # Bush register button
         register_button.click()
 
 
-        # check if registration was successful by for example finding a success message element
-        success_message = self.driver.find_element(by=AppiumBy.ID, value='com.ernestjohndecina.intl3007_diary_application:id/successMessage')
-        self.assertIsNotNone(success_message)
+        # Wait and check for the Toast message using XPath
+        toast = WebDriverWait(self.driver, 20).until(
+            EC.presence_of_element_located((AppiumBy.XPATH, ".//*[contains(@text, 'Registration successful!')]")),
+            "Toast message not found"
+        )
+        self.assertIsNotNone(toast)  # Check that the toast message is not None
 
 
 if __name__ == '__main__':
