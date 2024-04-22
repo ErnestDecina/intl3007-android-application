@@ -26,6 +26,7 @@
             tools:layout_editor_absoluteX="34dp"
             tools:layout_editor_absoluteY="84dp" />
 
+
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="182dp"
@@ -37,13 +38,12 @@
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/backgroundImageView"
-            app:layout_constraintVertical_bias="0.086" />
-
+            app:layout_constraintVertical_bias="0.106" />
 
         <TextView
             android:id="@+id/greetingTextView"
-            android:layout_width="214dp"
-            android:layout_height="70dp"
+            android:layout_width="206dp"
+            android:layout_height="83dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:fontFamily="@font/francois_one"
@@ -78,7 +78,7 @@
             app:layout_constraintHorizontal_bias="0.798"
             app:layout_constraintStart_toEndOf="@+id/greetingTextView"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
