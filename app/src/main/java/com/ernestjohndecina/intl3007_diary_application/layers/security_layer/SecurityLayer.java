@@ -22,10 +22,10 @@ public class SecurityLayer {
     // Activity
     Activity mainActivity;
     ExecutorService executorService;
-    Crypt crypt = new Crypt();
+    public Crypt crypt = new Crypt();
 
     // DataLayer
-    DataLayer dataLayer;
+    public DataLayer dataLayer;
 
     static Boolean loginState = false;
     public static Integer userId = 0;

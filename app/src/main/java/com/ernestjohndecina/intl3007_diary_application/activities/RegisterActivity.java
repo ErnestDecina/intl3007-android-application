@@ -105,6 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
                pinCode
        );
 
+       Toast.makeText(this, "Registration successful!", Toast.LENGTH_LONG).show();
        finish();
     }
 

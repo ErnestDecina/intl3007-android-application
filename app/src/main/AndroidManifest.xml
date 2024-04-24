@@ -24,22 +24,22 @@
 
         <activity
             android:name=".activities.ViewEditDiaryActivity"
-            android:exported="false" />
+            android:exported="true" />
 
 
         <activity
             android:name=".activities.CreateEntryActivity"
-            android:exported="false" />
+            android:exported="true" />
 
 
         <activity
             android:name=".activities.LoginActivity"
-            android:exported="false" />
+            android:exported="true" />
 
 
         <activity
             android:name=".activities.RegisterActivity"
-            android:exported="false" />
+            android:exported="true" />
 
 
         <activity
