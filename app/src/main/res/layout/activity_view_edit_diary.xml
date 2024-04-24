@@ -139,15 +139,15 @@
 
         <ScrollView
             android:id="@+id/scrollView2"
-            android:layout_width="365dp"
-            android:layout_height="541dp"
+            android:layout_width="362dp"
+            android:layout_height="560dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/audioImageButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.553"
+            app:layout_constraintHorizontal_bias="0.489"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-            app:layout_constraintVertical_bias="0.034">
+            app:layout_constraintVertical_bias="0.079">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -180,6 +180,20 @@
                     android:layout_height="match_parent">
 
                 </androidx.recyclerview.widget.RecyclerView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100px">
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageButton
+                    android:id="@+id/audioImageButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#00FFFFFF"
+                    android:src="@drawable/audio_done" />
+
             </LinearLayout>
         </ScrollView>
 

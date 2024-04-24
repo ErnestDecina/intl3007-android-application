@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,6 +65,7 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
 
     // Recycler View
     RecyclerView imageRecyclerView;
+    ImageButton audioImageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +79,6 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        playAudio();
-
-
     }
 
     @Override
@@ -101,6 +100,7 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
         createSystemFeatures();
         setupMediaPlayer();
         getEntryID();
+        setupAudioButton();
         loadDiaryEntry();
         setupTextViews();
         setupExitButton();
@@ -163,6 +163,11 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
         exitImageButton.setOnClickListener(v -> finish());
     }
 
+    private void setupAudioButton() {
+        audioImageButton = findViewById(R.id.audioImageButton);
+        audioImageButton.setOnClickListener(v -> playAudio());
+    }
+
     private void setupRecyclerView() {
         imageRecyclerView = findViewById(R.id.imageRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true);
@@ -201,7 +206,7 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
         byte[] audioBytes = systemFeatures.diaryFeatures.getDiaryEntryAudio(diaryEntry);
 
         if(audioBytes == null) {
-            Toast.makeText(this, "No audio", Toast.LENGTH_SHORT).show();
+            audioImageButton.setVisibility(View.GONE);
             return;
         }
 
@@ -210,6 +215,9 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
             FileOutputStream fos = new FileOutputStream(fileName);
             fos.write(audioBytes);
             fos.close();
+
+            mediaPlayer.setDataSource(fileName);
+            mediaPlayer.prepare();
         }
         catch(FileNotFoundException ex)   {
             System.out.println("FileNotFoundException : " + ex);
@@ -224,13 +232,7 @@ public class ViewEditDiaryActivity extends AppCompatActivity {
     }
 
     private void playAudio() {
-        try {
-            mediaPlayer.setDataSource(fileName);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-        } catch (IOException e) {
-            Log.e("TEST", "prepare() failed");
-        }
+        mediaPlayer.start();
     }
 
 

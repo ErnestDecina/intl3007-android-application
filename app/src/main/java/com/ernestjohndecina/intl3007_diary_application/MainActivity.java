@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         changeFragmentHome();
     }
 
+
     @Override
     public void onBackPressed() {
         // Log user out
