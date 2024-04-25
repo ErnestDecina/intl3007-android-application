@@ -80,7 +80,7 @@ public class SecurityLayerUnitTest {
         mockUser.username = "encryptedUsername";
         mockUser.pin = "encryptedPin";
 
-        when(mockDataLayer.readUserDetails()).thenReturn(mockFuture);
+        when(mockDataLayer.readUserDetails(anyInt())).thenReturn(mockFuture);
         when(mockFuture.get()).thenReturn(mockUser);
         when(mockCrypt.decryptString(anyString())).thenReturn("decrypted");
 

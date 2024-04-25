@@ -48,6 +48,7 @@ public class DiaryFeaturesUnitTest {
     @Test
     public void testCreateDiaryEntry() {
         // Arrange: Define parameters to pass to createDiaryEntry method
+        int userId = 123;
         String title = "Test Title";
         String content = "Test Content";
         String timestamp = "2024-04-15";
@@ -57,7 +58,7 @@ public class DiaryFeaturesUnitTest {
         ArrayList<Uri> uriArrayList = new ArrayList<>();
 
         // Act: Call the createDiaryEntry method
-        diaryFeatures.createDiaryEntry(title, content, timestamp, location, lastUpdate, mood, uriArrayList);
+        diaryFeatures.createDiaryEntry(userId,title, content, timestamp, location, lastUpdate, mood, uriArrayList);
 
         // Assert: Verify that a task was submitted to the ExecutorService
         verify(mockExecutorService).submit(any(Runnable.class));

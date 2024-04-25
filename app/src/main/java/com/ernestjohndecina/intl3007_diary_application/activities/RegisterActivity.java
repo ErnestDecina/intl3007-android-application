@@ -16,6 +16,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import android.widget.ImageButton;
 import android.content.Intent;
+import android.widget.Toast;
 
 
 public class RegisterActivity extends AppCompatActivity {
